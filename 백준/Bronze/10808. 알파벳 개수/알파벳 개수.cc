@@ -2,15 +2,11 @@
 
 using namespace std;
 
-int countings[126];
+int cnt[26];
 string s;
 int main() {
     cin >> s;
-    for(int i = 0; i < s.size(); i++) {
-        countings[(int)s[i]]++;
-    }
-    for(int i = 97; i < 97 + 26; i++) {
-        cout << countings[i] << " ";
-    }
+    for(int a : s) cnt[a - 'a']++;
+    for(int i = 0; i < 26; i++) cout << cnt[i] << " ";
     return 0;
 }
