@@ -1,58 +1,28 @@
 
 #include <bits/stdc++.h>
-
 using namespace std;
 
-class Clothes {
-    public:
-        string name, type;
-    
-    Clothes(string name, string type) {
-        this->name = name;
-        this->type = type;
-    }
-    
-    Clothes() {};
-};
-
-int total_case, n;
-Clothes clothes[30];
-
-int GetCase() {
-    // 의상 종류별 개수를 세기 위한 map
-    map<string, int> type_count;
-    
-    // 각 의상의 type별로 개수를 센다
-    for(int i = 0; i < n; i++) {
-        type_count[clothes[i].type]++;
-    }
-    
-    // 각 종류별로 (안입는 경우 + 해당 종류의 옷 개수)를 모두 곱한 뒤
-    // 아무것도 안입는 경우 1을 뺀다
-    int cnt = 1;
-    for(auto it : type_count) {
-        cnt *= (it.second + 1);
-    }
-    
-    return cnt - 1;
-}
+int t, n;
+string a, b;
 
 int main() {
-    cin >> total_case;
-    
-    for(int i = 0; i < total_case; i++) {
-        cin >> n;   // 의상의 수
+    cin >> t;
+    while(t--) {
+        map<string, int> mp;
+        cin >> n;   // 의상의 개수
         
-        for(int j = 0; j < n; j++) {
-            string name, type;
-            
-            cin >> name >> type;
-            
-            clothes[j] = Clothes(name, type);
+        for(int i = 0; i < n; i++) {
+            cin >> a >> b;  // 의상 이름, 종류
+            mp[b]++;    // 해당 종류에 cnt
         }
         
-        cout << GetCase() << '\n';
-        
+        // 경우의 수는 long long으로
+        long long ret = 1;
+        for(auto c : mp) {
+            ret *= ((long long)c.second + 1);   // 해당 종류의 의상의 개수 + 해당 종류에서 아무것도 선택 안했을 때의 경우
+        }
+        ret--;  // 모든 종류에서 아무 것도 선택하지 않았을 때는 제외
+        cout << ret << '\n';
     }
     return 0;
 }
