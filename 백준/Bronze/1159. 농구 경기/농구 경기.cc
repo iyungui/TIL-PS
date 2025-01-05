@@ -3,27 +3,20 @@
 using namespace std;
 
 int n;
-vector<string> v;
+string a, ret;
 int cnt[26];
-
 int main() {
     cin >> n;
     for(int i = 0; i < n; i++) {
-        string a;
         cin >> a;
-        v.push_back(a);
+        cnt[a[0] - 'a']++;    // char -> int
     }
-    for(string a : v) {
-        int first = a[0] - 'a';
-        cnt[first]++;
-    }
-    bool satisfied = false;
     for(int i = 0; i < 26; i++) {
         if(cnt[i] >= 5) {
-            cout << (char)(i + 'a');
-            satisfied = true;
+            ret += i + 'a'; // int -> string
         }
     }
-    if(!satisfied) cout << "PREDAJA";
+    if((int)ret.size()) cout << ret;
+    else cout << "PREDAJA";
     return 0;
 }
