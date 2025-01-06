@@ -1,27 +1,31 @@
-
 #include <bits/stdc++.h>
+
 using namespace std;
 
 int t, n;
 string a, b;
 
 int main() {
+    ios_base::sync_with_stdio();
+    cin.tie(NULL); cout.tie(NULL);
+    
     cin >> t;
+    
     while(t--) {
+        cin >> n;
         map<string, int> mp;
-        cin >> n;   // 의상의 개수
         
         for(int i = 0; i < n; i++) {
-            cin >> a >> b;  // 의상 이름, 종류
-            mp[b]++;    // 해당 종류에 cnt
+            cin >> a >> b;
+            mp[b]++;
         }
         
-        // 경우의 수는 long long으로
         long long ret = 1;
-        for(auto c : mp) {
-            ret *= ((long long)c.second + 1);   // 해당 종류의 의상의 개수 + 해당 종류에서 아무것도 선택 안했을 때의 경우
+        
+        for(auto a : mp) {
+            ret *= ((long long)a.second + 1);
         }
-        ret--;  // 모든 종류에서 아무 것도 선택하지 않았을 때는 제외
+        ret--;
         cout << ret << '\n';
     }
     return 0;
