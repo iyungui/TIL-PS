@@ -3,28 +3,32 @@
 using namespace std;
 
 int n, m;
-string s;
-string a[100004];   // int to string
-map<string, int> mp;    // string to int
+string a;
+map<string, int> mp;
+string arr[100004];
 
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL); cout.tie(NULL);
+    
     cin >> n >> m;
-    for(int i = 0; i < n; i++) {
-        cin >> s;
-        
-        a[i + 1] = s;
-        mp[s] = i + 1;
+    
+    for(int i = 1; i <= n; i++) {
+        cin >> a;
+        mp[a] = i;
+        arr[i] = a;
     }
     
     for(int i = 0; i < m; i++) {
-        cin >> s;
-        if(atoi(s.c_str()) == 0) {
-            cout << mp[s] << '\n';
+        cin >> a;
+        if(atoi(a.c_str())) {
+            // int
+            cout << arr[stoi(a)] << '\n';
         } else {
-            cout << a[stoi(s)] << '\n';
+            // string
+            cout << mp[a] << '\n';
         }
     }
+    
     return 0;
 }
