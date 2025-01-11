@@ -1,35 +1,12 @@
 #include <bits/stdc++.h>
+
 using namespace std;
 
 string s, ret;
-int lcnt, vcnt; // 연속 모음, 연속 자음 cnt
+int lcnt, rcnt;
 
-bool isVowel(int c) {
-    return (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u');
-}
-
-bool solve() {
-    lcnt = vcnt = 0;
-    bool is_include_v = 0;
-    int prev = -1;
-    
-    for(int i = 0; i < s.size(); i++) {
-        int idx = s[i];
-        if(isVowel(idx)) {
-            lcnt++;
-            vcnt = 0;
-            is_include_v = 1;
-        }
-        else {
-            vcnt++;
-            lcnt = 0;
-        }
-        if(vcnt == 3 || lcnt == 3) return false;
-        if(i >= 1 && (prev == idx) && (idx != 'e' && idx != 'o')) return false;
-        prev = idx;
-    }
-    if(!is_include_v) return false;
-    return true;
+bool isVowel(int idx) {
+    return idx == 'a' || idx == 'e' || idx == 'i' || idx == 'o' || idx == 'u';
 }
 
 int main() {
@@ -39,13 +16,23 @@ int main() {
     while(true) {
         cin >> s;
         if(s == "end") break;
-        ret += "<" + s + "> is ";
+        lcnt = rcnt = 0;
+        bool flag = 0;
+        bool is_include_v = 0;
+        char prev = -1;
+        for(int i = 0; i < s.size(); i++) {
+            if(isVowel(s[i])) lcnt++, rcnt = 0, is_include_v = 1;
+            else rcnt++, lcnt = 0;
+            if(i >= 1 && (prev == s[i]) && (prev != 'e' && prev != 'o')) flag = 1;
+            if(lcnt == 3 || rcnt == 3) flag = 1;
+            prev = s[i];
+        }
+        if(!is_include_v) flag = 1;
+        if(flag) cout << "<" << s << "> is not acceptable.\n";
+        else cout << "<" << s << "> is acceptable.\n";
         
-        if(solve()) ret += "acceptable.\n";
-        else ret += "not acceptable.\n";
     }
     
-    cout << ret;
     
     return 0;
 }
