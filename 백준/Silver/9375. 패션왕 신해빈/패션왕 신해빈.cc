@@ -3,30 +3,29 @@
 using namespace std;
 
 int t, n;
+map<string, int> mp;
 string a, b;
-
+typedef long long ll;
 int main() {
-    ios_base::sync_with_stdio();
+    ios_base::sync_with_stdio(false);
     cin.tie(NULL); cout.tie(NULL);
     
     cin >> t;
     
     while(t--) {
         cin >> n;
-        map<string, int> mp;
         
+        ll ret = 1;
+        mp.clear();
         for(int i = 0; i < n; i++) {
             cin >> a >> b;
             mp[b]++;
         }
-        
-        long long ret = 1;
-        
-        for(auto a : mp) {
-            ret *= ((long long)a.second + 1);
+        for(auto it : mp) {
+            ret *= (ll)it.second + 1;
         }
         ret--;
         cout << ret << '\n';
     }
-    return 0;
+    
 }
