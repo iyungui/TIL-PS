@@ -2,22 +2,19 @@
 
 using namespace std;
 
-int n, a, r, root;
+int n, temp, r, root;
 vector<int> adj[54];
 
-int dfs(int n) {
-    
+int dfs(int here) {
     int ret = 0;
     int child = 0;
     
-    for(int there : adj[n]) {
+    for(int there : adj[here]) {
         if(there == r) continue;
         ret += dfs(there);
         child++;
     }
-    
     if(child == 0) return 1;
-    
     return ret;
 }
 
@@ -26,14 +23,13 @@ int main() {
     cin.tie(NULL); cout.tie(NULL);
     
     cin >> n;
+    
     for(int i = 0; i < n; i++) {
-        cin >> a;
-        if(a == -1) root = i;
-        else adj[a].push_back(i);
+        cin >> temp;
+        if(temp == -1) root = i;
+        else adj[temp].push_back(i);
     }
-    
     cin >> r;
-    
     if(r == root) {
         cout << 0 << '\n';
         return 0;
