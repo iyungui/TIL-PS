@@ -4,23 +4,20 @@ using namespace std;
 
 int n, m, a, b, max_val;
 vector<int> adj[10004];
-int visited[10004];
-map<int, int> mp;
+int visited[10004], dp[10004];
+
 
 int dfs(int here) {
     visited[here] = 1;
-    int ret = 0;
-    int child = 0;
+    int ret = 1;
     
     for(int there : adj[here]) {
         if(visited[there] == 0) {
             ret += dfs(there);
         }
-        child++;
     }
-    if(child == 0) return 1;
     
-    return ret + 1;
+    return ret;
 }
 
 int main() {
@@ -33,14 +30,13 @@ int main() {
     
     for(int i = 1; i <= n; i++) {
         fill(&visited[0], &visited[0] + 10004, 0);
-        int cnt = dfs(i);
-        max_val = max(max_val, cnt);
-        mp[i] = cnt;
+        dp[i] = dfs(i);
+        max_val = max(max_val, dp[i]);
     }
     
-    for(auto it : mp) {
-        if(it.second == max_val) {
-            cout << it.first << " ";
+    for(int i = 1; i <= n; i++) {
+        if(dp[i] == max_val) {
+            cout << i << " ";
         }
     }
     
