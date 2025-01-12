@@ -2,8 +2,8 @@
 
 using namespace std;
 
-int n, m, ret, cnt, a[10][10], visited[10][10];
 vector<pair<int, int>> virusList, wallList;
+int n, m, a[10][10], visited[10][10], ret;
 const int dy[] = {-1, 0, 1, 0};
 const int dx[] = {0, 1, 0, -1};
 
@@ -13,31 +13,23 @@ bool InRange(int y, int x) {
 
 void dfs(int y, int x) {
     visited[y][x] = 1;
-    
-    int ny, nx;
     for(int i = 0; i < 4; i++) {
-        ny = y + dy[i];
-        nx = x + dx[i];
+        int ny = y + dy[i];
+        int nx = x + dx[i];
         
-        if(InRange(ny, nx) && a[ny][nx] == 0 && visited[ny][nx] == 0) {
-            dfs(ny, nx);
-        }
+        if(InRange(ny, nx) && a[ny][nx] == 0 && visited[ny][nx] == 0) dfs(ny, nx);
     }
-    
     return;
 }
 
 int solve() {
+    int cnt = 0;
+    
     fill(&visited[0][0], &visited[0][0] + 10 * 10, 0);
     
-    // 바이러스 퍼뜨리기
-    for(pair<int, int> b : virusList) {
-        dfs(b.first, b.second);
+    for(pair<int, int> i : virusList) {
+        dfs(i.first, i.second);
     }
-    
-    
-    // 안전영역 개수 구하기
-    cnt = 0;
     
     for(int i = 0; i < n; i++) {
         for(int j = 0; j < m; j++) {
@@ -49,7 +41,11 @@ int solve() {
 }
 
 int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
+    
     cin >> n >> m;
+    
     for(int i = 0; i < n; i++) {
         for(int j = 0; j < m; j++) {
             cin >> a[i][j];
@@ -64,7 +60,9 @@ int main() {
                 a[wallList[i].first][wallList[i].second] = 1;
                 a[wallList[j].first][wallList[j].second] = 1;
                 a[wallList[k].first][wallList[k].second] = 1;
+                
                 ret = max(ret, solve());
+                
                 a[wallList[i].first][wallList[i].second] = 0;
                 a[wallList[j].first][wallList[j].second] = 0;
                 a[wallList[k].first][wallList[k].second] = 0;
