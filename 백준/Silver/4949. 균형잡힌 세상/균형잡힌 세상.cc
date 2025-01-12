@@ -1,37 +1,41 @@
 #include <bits/stdc++.h>
+
 using namespace std;
 
-int main() {
-    string s;
-    while(true) {
-        getline(cin, s);
-        if(s == ".") break;  // 온점 하나만 있는 줄에서 종료
-        
-        stack<char> stk;
-        bool isValid = true;
-        
-        for(char c : s) {
-            if(c == '(' || c == '[') {
-                stk.push(c);
-            }
-            else if(c == ')') {
-                if(stk.empty() || stk.top() != '(') {
-                    isValid = false;
-                    break;
-                }
-                stk.pop();
-            }
-            else if(c == ']') {
-                if(stk.empty() || stk.top() != '[') {
-                    isValid = false;
-                    break;
-                }
-                stk.pop();
-            }
+string s;
+
+bool check(string s) {
+    stack<char> stk;
+    
+    for(char c : s) {
+        if(c == '(') {
+            stk.push(c);
+        } else if(c == '[') {
+            stk.push(c);
         }
         
-        if(!stk.empty()) isValid = false;  // 스택에 괄호가 남아있으면 불균형
-        cout << (isValid ? "yes" : "no") << '\n';
+        if(c == ')') {
+            if(stk.size() && stk.top() == '(') stk.pop();
+            else return false;
+        } else if(c == ']') {
+            if(stk.size() && stk.top() == '[') stk.pop();
+            else return false;
+        }
+    }
+    return stk.empty();
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
+    
+    while(true) {
+        getline(cin, s);
+        if(s == ".") break;
+
+        if(check(s)) cout << "yes\n";
+        else cout << "no\n";
+        
     }
     return 0;
 }
