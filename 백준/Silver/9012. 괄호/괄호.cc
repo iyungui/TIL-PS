@@ -2,24 +2,32 @@
 
 using namespace std;
 
-int t;
+int n;
 string s;
-int main() {
-    cin >> t;
-    
-    while(t--) {
-        
-        // init
-        cin >> s;
-        stack<char> stk;
-        
-        for(int i = 0; i < s.size(); i++) {
-            if(stk.size() && stk.top() == '(' && s[i] == ')') stk.pop();
-            else stk.push(s[i]);
+
+bool check(string s) {
+    stack<char> stk;
+    for(char c : s) {
+        if(c == '(') stk.push(c);
+        else if(c == ')') {
+            if(stk.empty()) return false;
+            else if(stk.size() && stk.top() == '(') stk.pop();
         }
-        if(stk.empty()) cout << "YES\n";
+    }
+    
+    return stk.empty();
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
+    
+    cin >> n;
+    
+    while(n--) {
+        cin >> s;
+        if(check(s)) cout << "YES\n";
         else cout << "NO\n";
-        
     }
     return 0;
 }
