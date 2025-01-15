@@ -2,14 +2,13 @@
 
 using namespace std;
 
-#define MAX_NUM 54
+#define MAX_NUM 51
 
-int t, m, n, k;
-int arr[MAX_NUM][MAX_NUM];
-int visited[MAX_NUM][MAX_NUM];
+int t;
+int n, m, k, arr[MAX_NUM][MAX_NUM], visited[MAX_NUM][MAX_NUM], cnt;
+
 int dy[] = {-1, 0, 1, 0};
 int dx[] = {0, 1, 0, -1};
-int nx, ny;
 
 bool InRange(int y, int x) {
     return y >= 0 && y < n && x >= 0 && x < m;
@@ -17,47 +16,47 @@ bool InRange(int y, int x) {
 
 void dfs(int y, int x) {
     visited[y][x] = 1;
-    
+    int ny, nx;
     for(int i = 0; i < 4; i++) {
         ny = y + dy[i];
         nx = x + dx[i];
         
-        if(InRange(ny, nx) && arr[ny][nx] && visited[ny][nx] == 0) {
+        if(InRange(ny, nx) && arr[ny][nx] == 1 && visited[ny][nx] == 0) {
             dfs(ny, nx);
         }
     }
-    
     return;
 }
 
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL); cout.tie(NULL);
-
+    
     cin >> t;
+    
     while(t--) {
-        fill(&arr[0][0], &arr[0][0] + MAX_NUM * MAX_NUM, 0);
-        fill(&visited[0][0], &visited[0][0] + MAX_NUM * MAX_NUM, 0);
+        // 초기화
         cin >> m >> n >> k;
+        cnt = 0;
+        //visited, arr
+        fill(arr[0], arr[0] + MAX_NUM * MAX_NUM, 0);
+        fill(visited[0], visited[0] + MAX_NUM * MAX_NUM, 0);
+
+        int x, y;
         for(int i = 0; i < k; i++) {
-            int x, y;
             cin >> x >> y;
-            
             arr[y][x] = 1;
         }
         
-        int cnt = 0;
-        
         for(int i = 0; i < n; i++) {
             for(int j = 0; j < m; j++) {
-                if(arr[i][j] && visited[i][j] == 0) {
-                    cnt++; dfs(i, j);
+                if(arr[i][j] == 1 && visited[i][j] == 0) {
+                    dfs(i, j);
+                    cnt++;
                 }
             }
         }
-        
         cout << cnt << '\n';
-
     }
     return 0;
 }
