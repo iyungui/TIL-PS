@@ -1,31 +1,33 @@
 #include <bits/stdc++.h>
-using namespace std;
-#define prev aaa
-#define next aaaa
-const int max_n = 200004;
-int visited[max_n], prev[max_n], n, k, ret, here, cnt, next;
-vector<int> v;
-queue<int> q;
 
+using namespace std;
+#define next aaa
+#define prev aaaa
+const int MAX = 200000;
+
+int n, m, ret, visited[MAX + 4], prev[MAX + 4];
+queue<int> q;
+vector<int> v;
 int main() {
-    cin >> n >> k;
+    cin >> n >> m;
     visited[n] = 1;
     q.push(n);
-    while(q.size()) {
-        here = q.front();
-        q.pop();
-        if(here == k) {
-            ret = visited[k];
+
+    while(!q.empty()) {
+        int now = q.front(); q.pop();
+        if(now == m) {
+            ret = visited[m];
             break;
         }
-        for(int next : {here - 1, here + 1, here * 2}) {
-            if(next >= max_n || next < 0 || visited[next]) continue;
-            visited[next] = visited[here] + 1;
-            prev[next] = here;
-            q.push(next);
+        for(int next : {now - 1, now + 1, now * 2}) {
+            if(next >= 0 && next <= MAX && !visited[next]) {
+                q.push(next);
+                visited[next] = visited[now] + 1;
+                prev[next] = now;
+            }
         }
     }
-    for(int i = k; i != n; i = prev[i]) {
+    for(int i = m; i != n; i = prev[i]) {
         v.push_back(i);
     }
     v.push_back(n);
