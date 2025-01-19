@@ -2,11 +2,11 @@
 
 using namespace std;
 
-int n, m, ret, a[54][54], result = INT_MAX;
-vector<vector<int>> chickenList;
+int n, m, a[54][54];
 vector<pair<int, int>> chicken, _home;
+vector<vector<int>> chickenList;
 
-void combi(int start, vector<int> &v) {
+void combi(int start, vector<int> & v) {
     if(v.size() == m) {
         chickenList.push_back(v);
         return;
@@ -16,40 +16,32 @@ void combi(int start, vector<int> &v) {
         combi(i, v);
         v.pop_back();
     }
-    
-    return;
 }
-
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL); cout.tie(NULL);
-    
     cin >> n >> m;
     for(int i = 0; i < n; i++) {
         for(int j = 0; j < n; j++) {
             cin >> a[i][j];
-            
-            if(a[i][j] == 1) _home.push_back({i, j});
             if(a[i][j] == 2) chicken.push_back({i, j});
+            if(a[i][j] == 1) _home.push_back({i, j});
         }
     }
     
     vector<int> v;
     combi(-1, v);
-    
+    int ans = INT_MAX;
     for(vector<int> cList : chickenList) {
-        int ret = 0;
-        
+        int sum = 0;
         for(pair<int, int> home : _home) {
-            int _min = INT_MAX;
+            int c_dist = INT_MAX, _dist;
             for(int c : cList) {
-                int _dist = abs(home.first - chicken[c].first) + abs(home.second - chicken[c].second);
-                _min = min(_min, _dist);
+                _dist = abs(home.first - chicken[c].first) + abs(home.second - chicken[c].second);
+                c_dist = min(c_dist, _dist);
             }
-            ret += _min;
+            sum += c_dist;
         }
-        result = min(result, ret);
+        ans = min(ans, sum);
     }
-    
-    cout << result << '\n';
+    cout << ans << '\n';
+    return 0;
 }
