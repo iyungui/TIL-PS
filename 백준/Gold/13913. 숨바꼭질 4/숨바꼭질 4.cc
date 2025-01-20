@@ -1,39 +1,38 @@
 #include <bits/stdc++.h>
 
-using namespace std;
 #define next aaa
 #define prev aaaa
-const int MAX = 200000;
-
-int n, m, ret, visited[MAX + 4], prev[MAX + 4];
-queue<int> q;
+using namespace std;
+const int MAX_N = 200000;
+int n, k, visited[MAX_N + 4];
+int prev[MAX_N + 4];
 vector<int> v;
 int main() {
-    cin >> n >> m;
-    visited[n] = 1;
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
+    cin >> n >> k;
+    queue<int> q;
     q.push(n);
-
-    while(!q.empty()) {
+    visited[n] = 1;
+    while(q.size()) {
         int now = q.front(); q.pop();
-        if(now == m) {
-            ret = visited[m];
-            break;
-        }
+        if(now == k) break;
         for(int next : {now - 1, now + 1, now * 2}) {
-            if(next >= 0 && next <= MAX && !visited[next]) {
-                q.push(next);
-                visited[next] = visited[now] + 1;
-                prev[next] = now;
+            if(next >= 0 && next <= MAX_N) {
+                if(visited[next] == 0) {
+                    visited[next] = visited[now] + 1;
+                    q.push(next);
+                    prev[next] = now;
+                }
             }
         }
     }
-    for(int i = m; i != n; i = prev[i]) {
+    for(int i = k; i != n; i = prev[i]) {
         v.push_back(i);
     }
     v.push_back(n);
     reverse(v.begin(), v.end());
-    
-    cout << ret - 1 << '\n';
+    cout << visited[k] - 1 << '\n';
     for(int i : v) cout << i << " ";
     return 0;
 }
