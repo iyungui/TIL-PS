@@ -1,29 +1,30 @@
 #include <bits/stdc++.h>
 
+#define next aaa
 using namespace std;
-const int MAX = 200000;
-
-int n, m, visited[MAX + 4];
-long long cnt[MAX + 4];
+const int MAX_N = 200000;
+int n, k, visited[MAX_N + 4], cnt[MAX_N + 4];
 
 int main() {
-    cin >> n >> m;
-    if(n == m) {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
+    cin >> n >> k;
+    if(n == k) {
         puts("0"); puts("1");
         return 0;
     }
-    visited[n] = 1;
-    cnt[n] = 1;
     queue<int> q;
     q.push(n);
-
-    while(!q.empty()) {
+    visited[n] = 1;
+    cnt[n] = 1;
+    while(q.size()) {
         int now = q.front(); q.pop();
+        if(now == k) break;
         for(int next : {now - 1, now + 1, now * 2}) {
-            if(next >= 0 && next <= MAX) {
-                if(!visited[next]) {
-                    q.push(next);
+            if(next >= 0 && next <= MAX_N) {
+                if(visited[next] == 0) {
                     visited[next] = visited[now] + 1;
+                    q.push(next);
                     cnt[next] += cnt[now];
                 } else if(visited[next] == visited[now] + 1) {
                     cnt[next] += cnt[now];
@@ -31,8 +32,7 @@ int main() {
             }
         }
     }
-    
-    cout << visited[m] - 1 << '\n';
-    cout << cnt[m] << '\n';
+    cout << visited[k] - 1 << '\n';
+    cout << cnt[k] << '\n';
     return 0;
 }
