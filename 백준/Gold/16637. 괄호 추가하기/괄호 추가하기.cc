@@ -1,17 +1,16 @@
-#include <bits/stdc++.h>
-using namespace std;
 
-vector<int> num;
-vector<char> oper_str;
+#include <bits/stdc++.h>
+
+using namespace std;
 int n, ret = INT_MIN;
+vector<char> oper_str;
+vector<int> num;
 string s;
 
-int oper(char a, int b, int c) {
-    int result = 0;
-    if(a == '+') result = b + c;
-    if(a == '-') result = b - c;
-    if(a == '*') result = b * c;
-    return result;
+int oper(char op, int a, int b) {
+    if(op == '+') return a + b;
+    else if(op == '-') return a - b;
+    else return a * b;
 }
 
 void go(int here, int _num) {
@@ -19,8 +18,9 @@ void go(int here, int _num) {
         ret = max(ret, _num);
         return;
     }
+    // 괄호 o
     go(here + 1, oper(oper_str[here], _num, num[here + 1]));
-    
+    // 괄호 x
     if(here + 2 <= num.size() - 1) {
         int temp = oper(oper_str[here + 1], num[here + 1], num[here + 2]);
         go(here + 2, oper(oper_str[here], _num, temp));
