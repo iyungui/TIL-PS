@@ -3,15 +3,14 @@
 using namespace std;
 
 vector<int> solution(int brown, int yellow) {
+    vector<int> answer;
     int total = brown + yellow;
-    
-    for(int width = 3; width <= sqrt(total); width++) {
-        if(total % width == 0) {
-            int height = total / width;
+    for(int w = 3; w <= sqrt(total); w++) {
+        if(total % w == 0) {
+            int h = total / w;
             
-            if ((width - 2) * (height - 2) == yellow && 
-                2 * (width + height - 2) == brown) {
-                return {height, width};
+            if(2 * (w + h - 2) == brown && (w - 2) * (h - 2) == yellow) {
+                return {h, w};
             }
         }
     }
