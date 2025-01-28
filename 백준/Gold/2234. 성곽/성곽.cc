@@ -13,7 +13,6 @@ int go(int y, int x, int cnt) {
         if(!((1 << i) & a[y][x])) {
             int ny = y + dy[i];
             int nx = x + dx[i];
-            if(ny < 0 || ny >= m || nx < 0 || nx >= n) continue;
             ret += go(ny, nx, cnt);
         }
     }
