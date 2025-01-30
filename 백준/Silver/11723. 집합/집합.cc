@@ -2,31 +2,30 @@
 
 using namespace std;
 
-int n, x, a;
+int n, a, x;
 string s;
-
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL); cout.tie(NULL);
     cin >> n;
     for(int i = 0; i < n; i++) {
         cin >> s;
-        
-        if(s == "all") {
+        if(s[0] == 'a' && s[1] == 'l') {
             a = (1 << 20) - 1;
-        } else if(s == "empty") {
+        } else if(s[0] == 'e') {
             a = 0;
-        } else {
+        }
+        else {
             cin >> x;
             x--;
-            if(s == "add") {
+            if(s[0] == 'a' && s[1] == 'd') {
                 a |= (1 << x);
-            } else if(s == "remove") {
+            } else if(s[0] == 'r') {
                 a &= ~(1 << x);
-            } else if(s == "check") {
+            } else if(s[0] == 'c') {
                 if(a & (1 << x)) cout << 1 << '\n';
                 else cout << 0 << '\n';
-            } else if(s == "toggle") {
+            } else if(s[0] == 't') {
                 a ^= (1 << x);
             }
         }
