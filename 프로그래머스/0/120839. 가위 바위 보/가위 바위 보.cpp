@@ -1,14 +1,14 @@
-#include <string>
-#include <vector>
-
+#include <bits/stdc++.h>
 using namespace std;
 
 string solution(string rsp) {
     string answer = "";
+    unordered_map<char, char> mp;
+    mp['0'] = '5';
+    mp['2'] = '0';
+    mp['5'] = '2';
     for(char c : rsp) {
-        if(c == '2') answer += '0';
-        else if(c == '0') answer += '5';
-        else if(c == '5') answer += '2';
-    } 
+        answer += mp[c];
+    }
     return answer;
 }
