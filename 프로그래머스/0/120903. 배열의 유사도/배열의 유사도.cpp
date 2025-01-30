@@ -1,14 +1,15 @@
-#include <string>
-#include <vector>
+#include <bits/stdc++.h>
 
 using namespace std;
 
 int solution(vector<string> s1, vector<string> s2) {
     int answer = 0;
-    for(string a : s1) {
-        for(string b : s2) {
-            if(a == b) answer++;
+    set<string> s3(s1.begin(), s1.end());
+    for(int i = 0; i < s2.size(); i++) {
+        if(s3.find(s2[i])!=s3.end()) {
+            answer++;
         }
     }
+    
     return answer;
 }
