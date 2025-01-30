@@ -4,10 +4,12 @@
 using namespace std;
 
 string solution(int age) {
+    
     string answer = "";
-    string temp = to_string(age);
-    for(char c : temp) {
-        answer += (c - '0' + 'a');
+    
+    while(age > 0) {
+        answer = char('a' + (age % 10)) + answer;
+        age /= 10;
     }
     return answer;
 }
