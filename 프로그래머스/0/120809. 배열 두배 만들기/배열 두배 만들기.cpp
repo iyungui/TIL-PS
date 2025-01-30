@@ -4,9 +4,8 @@
 using namespace std;
 
 vector<int> solution(vector<int> numbers) {
-    vector<int> answer;
-    for(int i : numbers) {
-        answer.push_back(i * 2);
+    for(int i = 0; i < numbers.size(); i++) {
+        numbers[i] = numbers[i] << 1;
     }
-    return answer;
+    return numbers;
 }
