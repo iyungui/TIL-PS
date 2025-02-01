@@ -1,61 +1,58 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 
 using namespace std;
 
-int n, ret = INT_MAX;   // ret : 최소 비용
-int mp, mf, ms, mv, sumP, sumF, sumS, sumV, sumC;
-vector<int> num;    // 최소 비용 식재료 번호
-
+int n, mp,mf,ms,mv;
 struct A {
-    int p, f, s, v, cost;
+    int p,f,s,v,cost;
 } a[16];
-
+int min_cost = INT_MAX;
+vector<int> ret;
 int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
     cin >> n;
     cin >> mp >> mf >> ms >> mv;
+    int p,f,s,v,c;
     for(int i = 0; i < n; i++) {
-        int p, f, s, v, c;
         cin >> p >> f >> s >> v >> c;
         a[i] = {p, f, s, v, c};
     }
-    
-    // solution
     for(int i = 0; i < (1 << n); i++) {
-        sumP = sumF = sumS = sumV = sumC = 0;
         vector<int> selected;
         for(int j = 0; j < n; j++) {
             if(i & (1 << j)) {
-                sumP += a[j].p;
-                sumF += a[j].f;
-                sumS += a[j].s;
-                sumV += a[j].v;
-                sumC += a[j].cost;
                 selected.push_back(j + 1);
             }
         }
-        if(sumP >= mp && sumF >= mf && sumS >= ms && sumV >= mv) {
-            if(ret > sumC) {
-                ret = sumC;
-                num.clear();
-                num = selected;
-            } else if(ret == sumC) {
-                sort(num.begin(), num.end());
-                sort(selected.begin(), selected.end());
-                if(num > selected) {
-                    num = selected;
+        p = f = s = v = c = 0;
+        for(int idx : selected) {
+            p += a[idx - 1].p;
+            f += a[idx - 1].f;
+            s += a[idx - 1].s;
+            v += a[idx - 1].v;
+            c += a[idx - 1].cost;
+        }
+        if(p >= mp && f >= mf && s >= ms && v >= mv) {
+            if(min_cost > c) {
+                ret = selected;
+                min_cost = c;
+            } else if(min_cost == c) {
+                if(ret > selected) {
+                    ret = selected;
                 }
             }
         }
     }
-    
-    
-    if(ret == INT_MAX) {
+    if(min_cost == INT_MAX) {
         cout << -1 << '\n';
-    } else {
-        cout << ret << '\n';
-        sort(num.begin(), num.end());
-        for(int i : num) cout << i << " ";
-        cout << '\n';
+        return 0;
+    }
+    
+    cout << min_cost << '\n';
+    
+    for(int i : ret) {
+        cout << i << " ";
     }
     return 0;
 }
