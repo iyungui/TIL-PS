@@ -1,31 +1,21 @@
 #include <bits/stdc++.h>
+
 using namespace std;
 
+string s;
+bool flag;
 int main() {
-    string s;
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
     cin >> s;
-    
-    int i = 0;
-    while(i < s.length()) {
-        // "pi"로 시작하는 경우
-        if(i + 1 < s.length() && s.substr(i, 2) == "pi") {
-            i += 2;
-        }
-        // "ka"로 시작하는 경우
-        else if(i + 1 < s.length() && s.substr(i, 2) == "ka") {
-            i += 2;
-        }
-        // "chu"로 시작하는 경우
-        else if(i + 2 < s.length() && s.substr(i, 3) == "chu") {
-            i += 3;
-        }
-        // 어떤 패턴도 매칭되지 않는 경우
+    for(int i = 0; i < s.size(); i++) {
+        if(i < s.size() - 1 && (s.substr(i, 2) == "pi" || s.substr(i, 2) == "ka")) i++;
+        else if(i < s.size() - 2 && s.substr(i, 3) == "chu") i += 2;
         else {
-            cout << "NO\n";
-            return 0;
+            flag = 1;
+            break;
         }
     }
-    
-    cout << "YES\n";
+    cout << ((flag == 1) ? "NO" : "YES") << '\n';
     return 0;
 }
