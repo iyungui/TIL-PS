@@ -1,26 +1,23 @@
 #include <bits/stdc++.h>
 
 using namespace std;
+
 string a, b;
 
 string add(string a, string b) {
     int carry = 0;
-    string result = "";
+    string ret = "";
     
-    
-    // 사이즈 0으로 맞추기
     while(a.size() < b.size()) a = '0' + a;
     while(a.size() > b.size()) b = '0' + b;
     
     for(int i = (int)a.size() - 1; i >= 0; i--) {
         int sum = (a[i] - '0') + (b[i] - '0') + carry;
         carry = sum / 10;
-        result = char(sum % 10 + '0') + result;
+        ret = char(sum % 10 + '0') + ret;
     }
-    if(carry) {
-        result = "1" + result;
-    }
-    return result;
+    if(carry) ret = "1" + ret;
+    return ret;
 }
 
 int main() {
