@@ -6,28 +6,30 @@ int t, n;
 string p, s;
 
 int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
     cin >> t;
     while(t--) {
         cin >> p >> n >> s;
+        string str;
         deque<int> d;
-        int cur = 0;
-        for(char c : s) {
-            if(c == ']' || c == '[') continue;
-            else if(c >= '0' && c <= '9') {
-                cur = cur * 10 + c - '0';
+        
+        int x = 0;
+        for(char a : s) {
+            if(a == ']' || a == '[') continue;
+            else if(a >= '0' && a <= '9') {
+                x = x * 10 + a - '0';
             } else {
-                if(cur > 0) d.push_back(cur);
-                cur = 0;
+                if(x > 0) d.push_back(x);
+                x = 0;
             }
         }
-        if(cur > 0) d.push_back(cur);
+        if(x > 0) d.push_back(x);
         
-        bool error = false, rev = false;
-        
+        bool rev = false, error = false;
         for(char a : p) {
-            if(a == 'R') {
-                rev = !rev;
-            } else {
+            if(a == 'R') rev = !rev;
+            else {
                 if(d.empty()) {
                     error = true;
                     break;
@@ -36,14 +38,14 @@ int main() {
                 else d.pop_front();
             }
         }
-        if(error) {
-            cout << "error" << '\n';
-        } else {
+        
+        if(error) cout << "error" << '\n';
+        else {
             if(rev) reverse(d.begin(), d.end());
             cout << "[";
             for(int i = 0; i < d.size(); i++) {
                 cout << d[i];
-                if(i < d.size() - 1) cout << ",";
+                if(i < d.size() - 1) cout << ',';
             }
             cout << "]\n";
         }
