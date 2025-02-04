@@ -2,34 +2,27 @@
 
 using namespace std;
 
-int n, d[200004], ret;
+int n, cnt, ret;
 string s;
 stack<int> stk;
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL); cout.tie(NULL);
     cin >> n >> s;
+    stk.push(-1);
     for(int i = 0; i < n; i++) {
         if(s[i] == '(') {
             stk.push(i);
         }
-        else if(stk.size()) {
-            d[i] = d[stk.top()] = 1;
+        if(s[i] == ')') {
             stk.pop();
-        }
-        
-    }
-    int cnt = 0;
-    for(int i = 0; i < n; i++) {
-        if(d[i]) {
-            cnt++;
-        } else {
-            ret = max(ret, cnt);
-            cnt = 0;
+            if(!stk.empty()) {
+                ret = max(ret, i - stk.top());
+            } else {
+                stk.push(i);
+            }
         }
     }
-    
-    ret = max(ret, cnt);
     cout << ret << '\n';
     return 0;
 }
