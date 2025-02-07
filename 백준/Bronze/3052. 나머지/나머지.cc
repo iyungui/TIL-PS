@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
-int temp, cnt[1000], ret;
 const int n = 42;
+int temp, cnt[n], ret;
 
 int main() {
     ios_base::sync_with_stdio(false);
@@ -10,7 +10,7 @@ int main() {
         cin >> temp;
         cnt[temp%n]++;
     }
-    for(int i = 0; i < 1000; i++) {
+    for(int i = 0; i < n; i++) {
         if(cnt[i]) ret++;
     }
     cout << ret << '\n';
