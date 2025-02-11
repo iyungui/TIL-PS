@@ -6,7 +6,7 @@ func solution(_ rny_string:String) -> String {
         if(i == "m") {
             ret += "rn"
         } else {
-            ret += String(i)
+            ret.append(i)
         }
     }
     return ret
