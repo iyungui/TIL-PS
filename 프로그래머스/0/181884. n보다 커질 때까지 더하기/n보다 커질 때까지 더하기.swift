@@ -11,12 +11,21 @@ func solution(_ numbers:[Int], _ n:Int) -> Int {
     // }
     // return sum
     
+    // S1 for + if
+    // var sum = 0
+    // for num in numbers {
+    //     sum += num
+    //     if sum > n { break }
+    // }
+    // return sum
+    
+    // S2 for + where
     var sum = 0
-    for num in numbers {
-        sum += num
-        if sum > n { break }
-    }
+    for num in numbers where sum <= n { sum += num }
     return sum
+    
+    // S3 reduce
+    // return numbers.reduce(0) { $0 > n ? $0 : $0 + $1 }
 }
 /*
 map을 사용하면 안 되는 이유:
