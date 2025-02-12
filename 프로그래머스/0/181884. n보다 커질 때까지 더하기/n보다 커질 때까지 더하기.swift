@@ -23,14 +23,24 @@ func solution(_ numbers:[Int], _ n:Int) -> Int {
     // var sum = 0
     // for num in numbers where sum <= n { sum += num }
     // return sum
+
+    // S3 forEach
+    // var sum = 0
+    // numbers.forEach { (num: Int) -> Void in
+    //     if(sum <= n) {
+    //         sum += num
+    //     } 
+    // }
+    // return sum
     
-    // S3 reduce (축약)
-    // return numbers.reduce(0) { $0 > n ? $0 : $0 + $1 }
+    // S4 reduce (축약)   // best
+    return numbers.reduce(0) { $0 > n ? $0 : $0 + $1 }
     
-    // S3 reduce (풀코드)
-    return numbers.reduce(0, { (result: Int, element: Int) -> Int in
-        result > n ? result : result + element
-    })
+    // S4 reduce (풀코드) 
+    // return numbers.reduce(0, { (result: Int, element: Int) -> Int in
+    //     result > n ? result : result + element
+    // })
+    
 }
 /*
 map을 사용하면 안 되는 이유:
