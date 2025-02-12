@@ -14,9 +14,7 @@ func solution(_ numbers:[Int], _ n:Int) -> Int {
     var sum = 0
     for num in numbers {
         sum += num
-        if sum > n {
-            break  // for 문 안에서는 break 사용 가능
-        }
+        if sum > n { break }
     }
     return sum
 }
