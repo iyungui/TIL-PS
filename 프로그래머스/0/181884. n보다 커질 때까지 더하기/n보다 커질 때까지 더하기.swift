@@ -20,12 +20,17 @@ func solution(_ numbers:[Int], _ n:Int) -> Int {
     // return sum
     
     // S2 for + where
-    var sum = 0
-    for num in numbers where sum <= n { sum += num }
-    return sum
+    // var sum = 0
+    // for num in numbers where sum <= n { sum += num }
+    // return sum
     
-    // S3 reduce
+    // S3 reduce (축약)
     // return numbers.reduce(0) { $0 > n ? $0 : $0 + $1 }
+    
+    // S3 reduce (풀코드)
+    return numbers.reduce(0, { (result: Int, element: Int) -> Int in
+        result > n ? result : result + element
+    })
 }
 /*
 map을 사용하면 안 되는 이유:
