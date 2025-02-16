@@ -1,8 +1,7 @@
 import Foundation
 
-func solution(_ my_string:String) -> [String] {
-    let length = my_string.count
-    return (0..<length).map {
-        String(my_string.suffix($0 + 1))
+func solution(_ my_string: String) -> [String] {
+    return (0..<my_string.count).map { 
+        String(my_string.suffix(my_string.count - $0))
     }.sorted()
 }
