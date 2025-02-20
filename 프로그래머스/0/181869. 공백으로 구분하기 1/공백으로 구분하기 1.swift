@@ -1,5 +1,5 @@
 import Foundation
 
 func solution(_ my_string:String) -> [String] {
-    my_string.split(separator: " ").map { String($0) }
+    my_string.components(separatedBy: " ")
 }
