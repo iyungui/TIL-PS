@@ -1,11 +1,22 @@
 import Foundation
 
 func solution(_ a:Int, _ d:Int, _ included:[Bool]) -> Int {
-    var ret = 0
-    for (index, isIncluded) in included.enumerated() {
-        if(isIncluded) {
-            ret += a + (d * index)
-        }
-    }
-    return ret
+    
+    // // S1
+    // var ret = 0
+    // for (index, isIncluded) in included.enumerated() {
+    //     if(isIncluded) {
+    //         ret += a + (d * index)
+    //     }
+    // }
+    // return ret
+    
+    
+    // S2
+    included.indices
+    .filter { included[$0] }
+    .map { a + ($0 * d) }
+    .reduce(0, +)
+
+            
 }
