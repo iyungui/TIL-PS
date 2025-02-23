@@ -1,8 +1,6 @@
 import Foundation
 
 func solution(_ myString:String, _ pat:String) -> String {
-    guard let lastRange = myString.range(of: pat, options: .backwards) else {
-        return ""
-    }
-    return String(myString[..<lastRange.upperBound])
+    let parts = myString.components(separatedBy: pat)
+    return parts[0..<parts.count - 1].joined(separator: pat) + pat
 }
