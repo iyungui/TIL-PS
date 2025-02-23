@@ -1,8 +1,8 @@
 import Foundation
 
 func solution(_ myString:String, _ pat:String) -> String {
-    if let lastRange = myString.range(of: pat, options: .backwards) {
-        return String(myString[..<lastRange.upperBound])
+    guard let lastRange = myString.range(of: pat, options: .backwards) else {
+        return ""
     }
-    return ""
+    return String(myString[..<lastRange.upperBound])
 }
