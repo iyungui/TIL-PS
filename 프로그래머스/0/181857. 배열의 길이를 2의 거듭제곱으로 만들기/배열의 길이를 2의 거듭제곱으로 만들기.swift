@@ -1,17 +1,7 @@
 import Foundation
 
 func solution(_ arr:[Int]) -> [Int] {
-    var length = arr.count
-    var powerOfTwo = 1
-    
-    while powerOfTwo < length {
-        powerOfTwo *= 2
-    }
-    if powerOfTwo == length {
-        return arr
-    }
-    
-    var result: [Int] = arr
-    result.append(contentsOf: repeatElement(0, count: powerOfTwo - length))
-    return result
+    var i = 1
+    while i < arr.count { i <<= 1 }
+    return arr + Array(repeating: 0, count: abs(arr.count - i))
 }
