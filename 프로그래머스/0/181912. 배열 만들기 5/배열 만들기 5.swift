@@ -1,12 +1,5 @@
 import Foundation
 
 func solution(_ intStrs:[String], _ k:Int, _ s:Int, _ l:Int) -> [Int] {
-    var result: [Int] = []
-    intStrs.forEach {
-        let num = Int(String(Array($0)[s..<s+l]))!
-        if(num > k) {
-            result.append(num)
-        }
-    }
-    return result
+    return intStrs.map { Int($0.prefix(s + l).suffix(l))! }.filter { $0 > k }
 }
