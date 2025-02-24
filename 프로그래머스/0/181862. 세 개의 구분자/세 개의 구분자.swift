@@ -1,7 +1,6 @@
 import Foundation
 
 func solution(_ myStr: String) -> [String] {
-    let parts = myStr.components(separatedBy: ["a", "b", "c"])
-        .filter { !$0.isEmpty }
+    let parts = myStr.split { "abc".contains($0) }.map { String($0) }
     return parts.isEmpty ? ["EMPTY"] : parts
 }
