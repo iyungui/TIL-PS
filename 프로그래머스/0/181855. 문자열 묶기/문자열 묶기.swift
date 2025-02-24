@@ -5,9 +5,5 @@ func solution(_ strArr:[String]) -> Int {
     strArr.forEach {
         cnt[$0.count] += 1
     }
-    var ret = 0
-    for i in 1...30 {
-        ret = max(ret, cnt[i])
-    }
-    return ret
+    return cnt.max()!
 }
