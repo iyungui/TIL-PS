@@ -1,9 +1,10 @@
 import Foundation
 
-func solution(_ arr:[Int], _ queries:[[Int]]) -> [Int] {
-    var result = arr
-    queries.forEach { query in
-        result.swapAt(query[0], query[1])
+func solution(_ arr: [Int], _ queries: [[Int]]) -> [Int] {
+    var arr = arr
+    // forEach
+    queries.forEach {
+        arr.swapAt($0[0], $0[1])
     }
-    return result
+    return arr
 }
