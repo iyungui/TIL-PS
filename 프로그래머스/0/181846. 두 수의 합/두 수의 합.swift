@@ -1,22 +1,25 @@
 import Foundation
 
 func solution(_ a:String, _ b:String) -> String {
-    let digitsA = a.reversed().map { Int(String($0))! }
-    let digitsB = b.reversed().map { Int(String($0))! }
-    let maxLength = max(digitsA.count, digitsB.count)
-    var result = [Int]()
+    var result = ""
     var carry = 0
+    var i = a.count - 1, j = b.count - 1
+    let aArr = Array(a).map { Int(String($0))! }, 
+        bArr = Array(b).map { Int(String($0))! }
     
-    for i in 0..<maxLength {
-        let digitA = i < digitsA.count ? digitsA[i] : 0
-        let digitB = i < digitsB.count ? digitsB[i] : 0
+    while i >= 0 || j >= 0 || carry > 0 {
+        var sum = carry
         
-        let sum = digitA + digitB + carry
-        result.append(sum % 10)
+        if i >= 0 {
+            sum += aArr[i]
+            i -= 1
+        }
+        if j >= 0 {
+            sum += bArr[j]
+            j -= 1
+        }
+        result = "\(sum % 10)" + result
         carry = sum / 10
     }
-    if carry > 0 {
-        result.append(carry)
-    }
-    return result.reversed().map { String($0) }.joined()
+    return result
 }
