@@ -1,8 +1,7 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-
-int n, l, ret, a[104][104], b[104][104];
+int n, l, a[104][104], b[104][104], ret;
 
 void solve(int a[104][104]) {
     for(int i = 0; i < n; i++) {
@@ -16,7 +15,6 @@ void solve(int a[104][104]) {
         }
         if(j == n - 1 && cnt >= 0) ret++;
     }
-    return;
 }
 
 int main() {
