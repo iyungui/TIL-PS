@@ -1,6 +1,7 @@
 import Foundation
 
 func solution(_ arr:[Int], _ delete_list:[Int]) -> [Int] {
-    let delSet = Set(delete_list)
-    return arr.filter { !delSet.contains($0) }
+    let arr = arr
+    let result = arr.filter { !delete_list.contains($0) }
+    return result
 }
