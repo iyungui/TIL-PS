@@ -13,10 +13,9 @@ func solution(_ a:Int, _ d:Int, _ included:[Bool]) -> Int {
     
     
     // S2
+
     included.indices
     .filter { included[$0] }
-    .map { a + ($0 * d) }
+    .map { a + ($0 * d) }   // t,f,f,t,t -> a, a+(3*d), a+(4*d)
     .reduce(0, +)
-
-            
 }
