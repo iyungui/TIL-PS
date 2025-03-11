@@ -1,9 +1,6 @@
 import Foundation
 
 func solution(_ numbers:[Int], _ num1:Int, _ num2:Int) -> [Int] {
-    var a: [Int] = []
-    for i in (num1...num2) {
-        a.append(numbers[i])
-    }
-    return a
+    // return (num1...num2).map { numbers[$0] }
+    return Array(numbers[num1...num2])
 }
