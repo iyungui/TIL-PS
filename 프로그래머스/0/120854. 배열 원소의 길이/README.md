@@ -1,10 +1,10 @@
 # [level 0] 배열 원소의 길이 - 120854 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120854) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120854?language=swift) 
 
 ### 성능 요약
 
-메모리: 4.21 MB, 시간: 0.02 ms
+메모리: 16.1 MB, 시간: 0.02 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 01월 29일 18:38:44
+2025년 03월 11일 11:29:56
 
 ### 문제 설명
 
