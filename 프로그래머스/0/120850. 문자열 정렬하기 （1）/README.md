@@ -1,10 +1,10 @@
 # [level 0] 문자열 정렬하기 (1) - 120850 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120850) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120850?language=swift) 
 
 ### 성능 요약
 
-메모리: 3.75 MB, 시간: 0.01 ms
+메모리: 16.4 MB, 시간: 0.17 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 01월 30일 14:39:15
+2025년 03월 13일 08:49:43
 
 ### 문제 설명
 
