@@ -1,6 +1,9 @@
-import Foundation
+#include <bits/stdc++.h>
 
-func solution(_ array:[Int]) -> Int {
-    let array = array.sorted()
-    return array[array.count / 2]
+using namespace std;
+
+int solution(vector<int> array) {
+    sort(array.begin(), array.end());
+    int mid = (int)array.size() / 2;
+    return array[mid];
 }
