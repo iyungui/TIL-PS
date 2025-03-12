@@ -1,10 +1,10 @@
 # [level 0] 최댓값 만들기 (2) - 120862 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120862) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120862?language=swift) 
 
 ### 성능 요약
 
-메모리: 4.27 MB, 시간: 0.01 ms
+메모리: 16.5 MB, 시간: 0.17 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 01월 30일 14:22:22
+2025년 03월 12일 14:44:51
 
 ### 문제 설명
 
