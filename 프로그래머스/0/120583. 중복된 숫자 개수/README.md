@@ -1,10 +1,10 @@
 # [level 0] 중복된 숫자 개수 - 120583 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120583) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120583?language=swift) 
 
 ### 성능 요약
 
-메모리: 3.66 MB, 시간: 0.01 ms
+메모리: 16.3 MB, 시간: 0.04 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 01월 30일 10:12:00
+2025년 03월 12일 11:42:29
 
 ### 문제 설명
 
