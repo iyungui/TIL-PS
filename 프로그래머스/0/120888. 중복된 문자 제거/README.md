@@ -1,10 +1,10 @@
 # [level 0] 중복된 문자 제거 - 120888 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120888) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120888?language=swift) 
 
 ### 성능 요약
 
-메모리: 3.66 MB, 시간: 0.01 ms
+메모리: 16.3 MB, 시간: 0.41 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 02월 01일 12:41:17
+2025년 03월 13일 19:32:24
 
 ### 문제 설명
 
