@@ -1,10 +1,10 @@
 # [level 0] 369게임 - 120891 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120891) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120891?language=swift) 
 
 ### 성능 요약
 
-메모리: 3.87 MB, 시간: 0.02 ms
+메모리: 16.4 MB, 시간: 0.06 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 01월 31일 13:26:54
+2025년 03월 13일 18:59:05
 
 ### 문제 설명
 
