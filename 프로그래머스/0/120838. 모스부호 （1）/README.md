@@ -1,10 +1,10 @@
 # [level 0] 모스부호 (1) - 120838 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120838) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120838?language=swift) 
 
 ### 성능 요약
 
-메모리: 3.66 MB, 시간: 0.03 ms
+메모리: 16.4 MB, 시간: 0.08 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 02월 01일 12:48:35
+2025년 03월 14일 19:19:37
 
 ### 문제 설명
 
