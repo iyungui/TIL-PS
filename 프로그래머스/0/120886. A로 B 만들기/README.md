@@ -1,10 +1,10 @@
 # [level 0] A로 B 만들기 - 120886 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120886) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120886?language=swift) 
 
 ### 성능 요약
 
-메모리: 4.14 MB, 시간: 0.07 ms
+메모리: 16.4 MB, 시간: 11.90 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 02월 02일 15:28:59
+2025년 03월 14일 23:17:27
 
 ### 문제 설명
 
