@@ -1,13 +1,14 @@
 import Foundation
 
 func solution(_ num_list:[Int], _ n:Int) -> [[Int]] {
-    var result: [[Int]] = Array(repeating: Array(repeating: 0, count: n), count: num_list.count / n)
-    var count = 0
-    for i in result.indices {
-        for j in result[i].indices {
-            result[i][j] = num_list[count]
-            count += 1
+    var answer: [[Int]] = []
+    var a: [Int] = []
+    for num in num_list {
+        a.append(num)
+        if a.count == n {
+            answer.append(a)
+            a = []
         }
     }
-    return result
+    return answer
 }
