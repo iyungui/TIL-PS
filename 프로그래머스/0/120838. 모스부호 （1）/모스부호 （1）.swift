@@ -30,13 +30,14 @@ func solution(_ letter:String) -> String {
         "--..": "z"
     ]
     
-    let morseLetters = letter.split(separator: " ")
-    var result = ""
-    for morseCode in morseLetters {
-        if let c = morse[String(morseCode)] {
-            result += c
-        }
-    }
+    // let morseLetters = letter.split(separator: " ")
+    // var result = ""
+    // for morseCode in morseLetters {
+    //     if let c = morse[String(morseCode)] {
+    //         result += c
+    //     }
+    // }
+    // return result
     
-    return result
+    return letter.components(separatedBy: " ").map { morse[$0] ?? "" }.reduce("", +) 
 }
