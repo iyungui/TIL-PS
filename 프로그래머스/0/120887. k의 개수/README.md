@@ -1,10 +1,10 @@
 # [level 0] k의 개수 - 120887 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120887?language=cpp) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120887?language=swift) 
 
 ### 성능 요약
 
-메모리: 3.73 MB, 시간: 6.46 ms
+메모리: 16.8 MB, 시간: 187.88 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 02월 02일 00:26:24
+2025년 03월 14일 23:03:36
 
 ### 문제 설명
 
