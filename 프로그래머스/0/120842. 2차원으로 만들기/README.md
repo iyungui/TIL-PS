@@ -1,10 +1,10 @@
 # [level 0] 2차원으로 만들기 - 120842 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120842) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120842?language=swift) 
 
 ### 성능 요약
 
-메모리: 4.14 MB, 시간: 0.05 ms
+메모리: 16.2 MB, 시간: 0.05 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 02월 02일 00:22:08
+2025년 03월 14일 21:21:45
 
 ### 문제 설명
 
