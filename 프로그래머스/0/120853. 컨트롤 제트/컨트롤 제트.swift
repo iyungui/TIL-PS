@@ -1,16 +1,13 @@
 import Foundation
 
 func solution(_ s:String) -> Int {
-    let arr: [String] = s.split(separator: " ").map { String($0) }
-    var prev: String = ""
-    var result: [String] = []
-    for str in arr {
+    var result: [Int] = []
+    for str in s.components(separatedBy: " ") {
         if str == "Z" {
-            result.removeLast()
+            result.popLast()
         } else {
-            result.append(str)
-            prev = str
+            result.append(Int(str)!)
         }
     }
-    return result.reduce(0) { $0 + Int($1)! }
+    return result.reduce(0, +)
 }
