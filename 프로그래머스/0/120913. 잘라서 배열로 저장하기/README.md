@@ -1,10 +1,10 @@
 # [level 0] 잘라서 배열로 저장하기 - 120913 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120913) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120913?language=swift) 
 
 ### 성능 요약
 
-메모리: 3.59 MB, 시간: 0.04 ms
+메모리: 16.2 MB, 시간: 0.27 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 02월 03일 17:06:54
+2025년 03월 16일 16:48:43
 
 ### 문제 설명
 
