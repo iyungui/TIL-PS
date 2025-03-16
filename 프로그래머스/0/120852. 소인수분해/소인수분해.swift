@@ -2,16 +2,15 @@ import Foundation
 
 func solution(_ n:Int) -> [Int] {
     var factors = Set<Int>()
-    var n = n
+    var temp = n
     var i = 2
-    while i * i <= n {
-        while n % i == 0 {
-            print(n)
+    while i * i <= temp {
+        while temp % i == 0 {
             factors.insert(i)
-            n /= i
+            temp /= i
         }
         i += 1
     }
-    if n > 1 { factors.insert(n) }
+    if temp > 1 { factors.insert(temp) }
     return factors.sorted()
 }
