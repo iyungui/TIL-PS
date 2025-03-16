@@ -1,10 +1,10 @@
 # [level 0] 이진수 더하기 - 120885 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120885?language=swift) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120885) 
 
 ### 성능 요약
 
-메모리: 16.1 MB, 시간: 0.04 ms
+메모리: 16.4 MB, 시간: 0.04 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 03월 16일 16:17:44
+2025년 03월 16일 16:20:28
 
 ### 문제 설명
 
