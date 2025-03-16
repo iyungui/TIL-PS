@@ -9,6 +9,6 @@ func solution(_ n:Int) -> [Int] {
             n /= i
         }
     }
-    if n > 1 { factors.insert(n) }
+    // if n > 1 { factors.insert(n) }
     return factors.sorted()
 }
