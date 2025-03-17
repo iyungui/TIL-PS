@@ -15,13 +15,13 @@ int solution(vector<int> sides) {
     }
     // mx 가 가장 긴 변인 경우
     // mn + x > mx
-    for(int i = mx - mx + 1; i < mx; i++) {
+    for(int i = 1; i < mx; i++) {
         if(mn + i > mx) answer++;
     }
     
     // x가 가장 긴 변인 경우
     // mn + mx > x
-    for(int i = mx; i < mn + mx; i++) {
+    for(int i = 0; i < mn; i++) {
         answer++;
     }
     
