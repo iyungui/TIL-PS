@@ -1,10 +1,10 @@
 # [level 0] 캐릭터의 좌표 - 120861 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120861) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120861?language=swift) 
 
 ### 성능 요약
 
-메모리: 3.67 MB, 시간: 0.02 ms
+메모리: 16.5 MB, 시간: 0.05 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 02월 05일 17:32:44
+2025년 03월 18일 15:26:15
 
 ### 문제 설명
 
