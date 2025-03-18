@@ -1,10 +1,10 @@
 # [level 0] 종이 자르기 - 120922 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120922) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120922?language=swift) 
 
 ### 성능 요약
 
-메모리: 4.21 MB, 시간: 0.01 ms
+메모리: 16.5 MB, 시간: 0.01 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 02월 10일 09:30:00
+2025년 03월 18일 23:34:00
 
 ### 문제 설명
 
