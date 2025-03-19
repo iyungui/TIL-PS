@@ -8,10 +8,6 @@ func solution(_ n:Int) -> Int {
         while prev % 3 == 0 || String(prev).contains("3") {
             prev += 1
         }
-        print("i: \(i), prev: \(prev)")
-    }
-    while prev % 3 == 0 || String(prev).contains("3") {
-        prev += 1
     }
     return prev
 }
