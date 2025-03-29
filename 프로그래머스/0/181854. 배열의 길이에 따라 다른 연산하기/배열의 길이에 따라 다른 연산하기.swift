@@ -1,11 +1,11 @@
 import Foundation
 
 func solution(_ arr:[Int], _ n:Int) -> [Int] {
-    var ret: [Int] = arr
-    let startIndex: Int = arr.count % 2 == 1 ? 0 : 1
-    for i in stride(from: startIndex, to: arr.count, by: 2) {
-        ret[i] += n
+    let startIndex = arr.count % 2 == 1 ? 0 : 1 // 홀수면 0부터, 짝수면 1부터 시작
+    var arr = arr
+    stride(from: startIndex, to: arr.count, by: 2).forEach {
+        // index
+        arr[$0] = arr[$0] + n
     }
-    
-    return ret
+    return arr
 }
