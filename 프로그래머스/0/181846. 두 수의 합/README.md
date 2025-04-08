@@ -1,10 +1,10 @@
 # [level 0] 두 수의 합 - 181846 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181846) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181846?language=swift) 
 
 ### 성능 요약
 
-메모리: 19.1 MB, 시간: 262.02 ms
+메모리: 19.5 MB, 시간: 200.79 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 02월 25일 14:22:10
+2025년 04월 08일 11:35:07
 
 ### 문제 설명
 
