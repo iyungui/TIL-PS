@@ -1,20 +1,22 @@
 import Foundation
 
-let n = Int(readLine()!)!
-
-var players: [String] = []
-
-for _ in 0..<n {
-    let temp = readLine()!
-    players.append(temp)
+let num: Int = Int(readLine()!)!
+var cnt: Array<Int> = Array(repeating: 0, count: 26)
+for _ in 0..<num {
+    let s: Array<Character> = Array(readLine()!)
+    cnt[Int(s[0].asciiValue! - 97)] += 1
 }
 
-var counts: [Character: Int] = [:]
+let startingValue = Int(("a" as UnicodeScalar).value) // 97
+var res: String = ""
 
-for player in players {
-    counts[player.first!, default: 0] += 1
+for (offset, element) in cnt.enumerated() {
+    if element >= 5 {
+        let c: Character = Character(UnicodeScalar(offset + startingValue)!)
+        res += String(c)
+    }
 }
-
-let answer = counts.filter { $0.value >= 5 }.keys.sorted().map { String($0) }.joined()
-
-answer.count > 0 ? print(answer) : print("PREDAJA")
+if res.isEmpty { print("PREDAJA") }
+else {
+    print(res.sorted().map { String($0) }.joined())
+}
