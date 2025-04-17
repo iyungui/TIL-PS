@@ -1,7 +1,12 @@
 func solution(_ n:Int) -> Int {
-    var f: [Int] = [0, 1]
-    for k in 2...n {
-        f.append((f[k - 1] + f[k - 2]) % 1234567)
+    var v1: Int = 0
+    var v2: Int = 1
+
+    for _ in 2...n {
+        let v = v1 + v2
+        v1 = v2
+        v2 = v % 1234567
     }
-    return f[n]
+
+    return v2
 }
