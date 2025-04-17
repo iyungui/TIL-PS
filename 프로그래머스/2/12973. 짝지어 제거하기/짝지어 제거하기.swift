@@ -1,10 +1,20 @@
 import Foundation
 
-func solution(_ s:String) -> Int{
-    var answer:Int = -1
-
-    // [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
-    print("Hello Swift")
-
-    return answer
+func solution(_ s:String) -> Int {
+    guard s.count % 2 == 0 else { return 0 }
+    var stk: Array<Character> = []
+    var s = Array(s)
+    
+    for ch in s {
+        if stk.isEmpty {
+            stk.append(ch)
+        } else {
+            if stk.last == ch {
+                stk.removeLast()
+            } else {
+                stk.append(ch)
+            }
+        }
+    }
+    return stk.isEmpty ? 1 : 0
 }
