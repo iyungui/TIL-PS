@@ -3,6 +3,6 @@ func solution(_ s:String) -> String {
     .components(separatedBy: " ")
     .map { (word: String) -> String in
         return word.prefix(1).uppercased() + word.dropFirst().lowercased()
-    }   // [String]
-    .joined(separator: " ") // String
+    }
+    .joined(separator: " ")
 }
