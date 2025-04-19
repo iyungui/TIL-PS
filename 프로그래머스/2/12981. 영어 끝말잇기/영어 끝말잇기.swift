@@ -2,7 +2,7 @@ import Foundation
 
 func solution(_ n:Int, _ words:[String]) -> [Int] {
     var prev: Character = words.first!.last!
-    var arr: [String] = [words.first!]
+    var arr: Set<String> = [words.first!]
     for (offset, element) in words.enumerated() {
         if offset == 0 { continue }
         
@@ -13,7 +13,7 @@ func solution(_ n:Int, _ words:[String]) -> [Int] {
             return [(offset % n) + 1, (offset / n) + 1]
         }
         prev = element.last!
-        arr.append(element)
+        arr.insert(element)
     }
     return [0, 0]
 }
