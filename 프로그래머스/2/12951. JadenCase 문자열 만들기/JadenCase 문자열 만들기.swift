@@ -1,8 +1,7 @@
 func solution(_ s:String) -> String {
-    s
+    return s
     .components(separatedBy: " ")
-    .map { (word: String) -> String in
-        return word.prefix(1).uppercased() + word.dropFirst().lowercased()
-    }
+    .filter { $0 != " " }
+    .map { $0.prefix(1).uppercased() + $0.dropFirst().lowercased() }
     .joined(separator: " ")
 }
