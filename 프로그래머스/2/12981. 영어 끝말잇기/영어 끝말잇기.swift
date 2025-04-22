@@ -1,19 +1,24 @@
 import Foundation
 
 func solution(_ n:Int, _ words:[String]) -> [Int] {
+    var s: Set<String> = []
     var prev: Character = words.first!.last!
-    var arr: Set<String> = [words.first!]
+    // curr = element.
     for (offset, element) in words.enumerated() {
-        if offset == 0 { continue }
+        if offset == 0 {
+            // 첫 번째 사람은 무조건 패스
+            s.insert(element)
+            continue
+        }
         
-        let curr = element.first!
-
-        // 앞사람이 말한 단어의 마지막 문자로 시작하지 않거나, 이전에 등장했던 단어일 경우
-        if curr != prev || arr.contains(element) {
-            return [(offset % n) + 1, (offset / n) + 1]
+        let curr: Character = element.first!
+        
+        // 이전에 등장했던 단어라면 또는 앞사람 단어 마지막 문자로 시작하지 않는다면
+        if s.contains(element) || prev != curr {
+            return [offset % n + 1, offset / n + 1]
         }
         prev = element.last!
-        arr.insert(element)
+        s.insert(element)
     }
     return [0, 0]
 }
