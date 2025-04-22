@@ -1,15 +1,14 @@
 import Foundation
 
-
 func solution(_ n:Int) -> Int {
-    var answer : Int = n + 1
-
+    var n = n
+    var cnt1 = String(n, radix: 2).filter { $0 == "1" }.count
     while true {
-        if n.nonzeroBitCount == answer.nonzeroBitCount {
-            break;
+        n += 1
+        var cnt2 = String(n, radix: 2).filter { $0 == "1" }.count
+        if cnt1 == cnt2 {
+            break
         }
-        answer += 1
     }
-
-    return answer
+    return n
 }
