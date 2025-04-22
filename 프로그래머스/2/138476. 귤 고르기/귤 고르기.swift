@@ -1,23 +1,20 @@
 import Foundation
 
 func solution(_ k:Int, _ tangerine:[Int]) -> Int {
-    var cnt = [Int: Int]()
+    var cnt: [Int: Int] = [:]
+    
     for i in tangerine {
         cnt[i, default: 0] += 1
     }
-    // 값만 필요하기 때문에
-    let sortedArr = cnt.values.sorted(by: >)
+    let sortedCnt = cnt.values.sorted(by: >)
     
+    var res = 0
     var selected = 0
-    var typeCount = 0
-    
-    for i in sortedArr {
+    for i in sortedCnt {
         selected += i
-        typeCount += 1
-        if selected >= k {
-            break
-        }
+        res += 1
+        if selected >= k { return res }
     }
     
-    return typeCount
+    return res
 }
