@@ -12,7 +12,7 @@ for i in 1...n {
     psum[i] = psum[i - 1] + arr[i - 1]
 }
 
-var res = psum[k] - psum[0]
+var res = Int.min
 
 for i in k...n {
     res = max(res, psum[i] - psum[i - k])
