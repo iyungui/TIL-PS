@@ -1,21 +1,23 @@
+
 import Foundation
+let input = readLine()!.split(separator: " ").map { Int($0)! }
+let n = input[0], k = input[1]
+let temperatures = readLine()!.split(separator: " ").map { Int($0)! }
 
-let a = readLine()!.components(separatedBy: " ").map { Int($0)! }
-
-var n: Int = a[0], k: Int = a[1]
-
-let arr = readLine()!.components(separatedBy: " ").map { Int($0)! }
-
-var psum = Array(repeating: 0, count: 100001)
-
-for i in 1...n {
-    psum[i] = psum[i - 1] + arr[i - 1]
+// 첫 번째 윈도우 합 계산
+var currentSum = 0
+for i in 0..<k {
+    currentSum += temperatures[i]
 }
 
-var res = Int.min
+// 최대값을 현재 윈도우의 합으로 초기화
+var maxSum = currentSum
 
-for i in k...n {
-    res = max(res, psum[i] - psum[i - k])
+// 슬라이딩 윈도우
+for i in k..<n {
+    // 새 요소 추가 및 가장 오래된 요소 제거
+    currentSum = currentSum + temperatures[i] - temperatures[i-k]
+    maxSum = max(maxSum, currentSum)
 }
 
-print(res)
+print(maxSum)
