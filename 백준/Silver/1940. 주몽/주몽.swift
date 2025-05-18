@@ -1,16 +1,21 @@
 import Foundation
 
-let N = Int(readLine()!)!
-let M = Int(readLine()!)!
-let nums = readLine()!.components(separatedBy: " ").map { Int($0)! }
-var cnt = 0
+let n = Int(readLine()!)!
+let m = Int(readLine()!)!
+var nums = readLine()!.components(separatedBy: " ").map { Int($0)! }
+print(solve())
 
-if M > 200000 { print(0) }
-else {
-    for i in 0..<N {
-        for j in 0..<i {
-            if nums[i] + nums[j] == M { cnt += 1 }
-        }
+
+func solve() -> Int {
+    if m > 100000 { return 0 }
+    nums.sort()
+    var cnt = 0
+    var (l, r) = (0, n - 1)
+    while l < r {
+        let sum = nums[l] + nums[r]
+        if sum == m { cnt += 1 }
+        if sum <= m { l += 1 }
+        else { r -= 1 }
     }
-    print(cnt)
+    return cnt
 }
