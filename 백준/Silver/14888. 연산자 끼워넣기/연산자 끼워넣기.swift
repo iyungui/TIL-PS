@@ -1,62 +1,39 @@
 import Foundation
 
-// 입력 처리
-let n = Int(readLine()!)!
-let numbers = readLine()!.split(separator: " ").map { Int($0)! }
-var operators = readLine()!.split(separator: " ").map { Int($0)! }
-// 덧셈(+), 뺄셈(-), 곱셈(×), 나눗셈(÷) 순서
-
-var maxResult = Int.min
+let N = Int(readLine()!)!
+let nums = readLine()!.components(separatedBy: " ").map { Int($0)! }
+var oper = readLine()!.components(separatedBy: " ").map { Int($0)! }
 var minResult = Int.max
+var maxResult = Int.min
 
-// 백트래킹 함수
-func dfs(index: Int, result: Int) {
-    // 모든 수를 다 사용했을 때
-    if index == n {
-        maxResult = max(maxResult, result)
-        minResult = min(minResult, result)
+func dfs(idx: Int, ret: Int) {
+    if idx == N {
+        minResult = min(minResult, ret)
+        maxResult = max(maxResult, ret)
         return
     }
     
-    // 각 연산자에 대해 시도
     for i in 0..<4 {
-        // 해당 연산자가 남아있으면
-        if operators[i] > 0 {
-            operators[i] -= 1  // 연산자 사용
+        if oper[i] > 0 {
+            oper[i] -= 1    // 연산자 사용
+            var nextRet = ret
             
-            var nextResult = result
-            
-            // 연산 수행
             switch i {
-            case 0: // 덧셈
-                nextResult += numbers[index]
-            case 1: // 뺄셈
-                nextResult -= numbers[index]
-            case 2: // 곱셈
-                nextResult *= numbers[index]
-            case 3: // 나눗셈
-                // C++14 기준 나눗셈 처리
-                if nextResult < 0 {
-                    nextResult = -(-nextResult / numbers[index])
-                } else {
-                    nextResult /= numbers[index]
-                }
-            default:
-                break
+            case 0: nextRet += nums[idx]
+            case 1: nextRet -= nums[idx]
+            case 2: nextRet *= nums[idx]
+            case 3: nextRet = nextRet < 0 && nums[idx] >= 0 ?  -(-nextRet / nums[idx]) : nextRet / nums[idx]
+            default: break
             }
             
-            // 다음 수로 진행
-            dfs(index: index + 1, result: nextResult)
+            dfs(idx: idx + 1, ret: nextRet)
             
-            // 백트래킹 (연산자 복원)
-            operators[i] += 1
+            oper[i] += 1
         }
     }
+    return
 }
 
-// DFS 시작 (첫 번째 수는 결과값으로 초기화)
-dfs(index: 1, result: numbers[0])
-
-// 결과 출력
+dfs(idx: 1, ret: nums[0])
 print(maxResult)
 print(minResult)
