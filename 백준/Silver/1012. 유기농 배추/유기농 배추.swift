@@ -8,13 +8,13 @@ var arr: [[Int]] = []
 var N: Int = 0, M: Int = 0, K: Int = 0
 
 func dfs(_ y: Int, _ x: Int) {
+    visited[y][x] = 1
     for i in 0..<4 {
         let ny = y + dy[i]
         let nx = x + dx[i]
         
         if ny < 0 || ny >= N || nx < 0 || nx >= M || visited[ny][nx] == 1 || arr[ny][nx] == 0 { continue }
         
-        visited[ny][nx] = 1
         dfs(ny, nx)
     }
 }
