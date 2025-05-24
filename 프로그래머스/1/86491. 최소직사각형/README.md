@@ -1,10 +1,10 @@
 # [level 1] 최소직사각형 - 86491 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/86491) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/86491?language=swift) 
 
 ### 성능 요약
 
-메모리: 4.94 MB, 시간: 0.94 ms
+메모리: 19.1 MB, 시간: 1.52 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 01월 22일 20:53:00
+2025년 05월 24일 22:47:16
 
 ### 문제 설명
 
