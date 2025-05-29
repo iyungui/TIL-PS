@@ -1,28 +1,25 @@
-
 import Foundation
-
-
 var arr: [Int] = []
 
-for _ in 0..<9 { arr.append(readLine().map { Int($0)! }!) }
-let sum = arr.reduce(0, +)
+for _ in 0..<9 {
+    arr.append(Int(readLine()!)!)
+}
 
-func solve() -> (Int, Int) {
-    for i in 0..<9 {
-        for j in 0..<i {
-            if sum - arr[i] - arr[j] == 100 {
-                return (i, j)
-            }
+var a = 0, b = 0
+let sum = arr.reduce(0, +)
+for i in 0..<9 {
+    for j in 0..<i {
+        if sum - arr[i] - arr[j] == 100 {
+            a = i; b = j
+            break
         }
     }
-    return (0, 0)
 }
 
-let (x, y) = solve()
+let res = arr.enumerated()
+    .filter { $0.offset != a && $0.offset != b }
+    .sorted { $0.element < $1.element }
 
-var result: [Int] = []
-for i in 0..<9 {
-    if i == x || i == y { continue }
-    result.append(arr[i])
+for (_, value) in res {
+    print(value)
 }
-result.sorted().forEach { print($0) }
