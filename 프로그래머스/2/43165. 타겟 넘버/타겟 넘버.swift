@@ -1,20 +1,20 @@
 import Foundation
 
 func solution(_ numbers:[Int], _ target:Int) -> Int {
-    let ret: Int = go(0, 0, numbers, target)
-    return ret
-}
-
-func go(_ index: Int, _ sum: Int, _ numbers: [Int], _ target: Int) -> Int {
-    if index == (numbers.count) {
-        if sum == target {
-            return 1
+    var cnt = 0
+    func go(_ index: Int, _ sum: Int) {
+        if index == numbers.count {
+            if sum == target {
+                cnt += 1
+            }
+            return
         }
-        return 0
+
+        go(index + 1, sum + numbers[index])
+        
+        go(index + 1, sum - numbers[index])
     }
     
-    let a = sum + numbers[index]
-    let b = sum - numbers[index]
-    
-    return go(index + 1, a, numbers, target) + go(index + 1, b, numbers, target)
+    go(0, 0)
+    return cnt
 }
