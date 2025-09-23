@@ -12,27 +12,27 @@ func main() {
     
     for _ in 0..<t {
         let p = readLine()!
-        _ = Int(readLine()!)!
+        _ = readLine()!
+        
         let str = readLine()!
-        
-        var x = 0
         var arr = [Int]()
-        
+        var cur = 0
         for ch in str {
             if ch == "[" || ch == "]" { continue }
             if ch >= "0" && ch <= "9" {
-                x = x * 10 + Int(String(ch))!
-            } else {
-                arr.append(x)
-                x = 0
+                cur = cur * 10 + Int(String(ch))!
+            }
+            else {  // ","
+                arr.append(cur)
+                cur = 0
             }
         }
-        if x > 0 { arr.append(x) }
+        if cur > 0 { arr.append(cur) }
         
-        var rev = false
-        var err = false
         var left = 0
         var right = arr.count - 1
+        var rev = false
+        var err = false
         
         for ch in p {
             if ch == "R" { rev.toggle() }
@@ -43,9 +43,13 @@ func main() {
             }
         }
         
-        if err { print("error"); continue }
+        if err {
+            print("error")
+            continue
+        }
         
         var result = [Int]()
+        
         if left <= right {
             for i in left...right {
                 result.append(arr[i])
@@ -53,15 +57,15 @@ func main() {
             if rev { result.reverse() }
         }
         
-        if result.isEmpty { print("[]"); continue }
-        print("[", terminator: "")
+        if result.isEmpty {
+            print("[]")
+            continue
+        }
         
+        print("[", terminator: "")
         for i in 0..<result.count {
-            if i == result.count - 1 {
-                print(result[i], terminator: "]\n")
-            } else {
-                print(result[i], terminator: ",")
-            }
+            if i == result.count - 1 { print(result[i], terminator: "]\n") }
+            else { print(result[i], terminator: ",") }
         }
     }
 }
