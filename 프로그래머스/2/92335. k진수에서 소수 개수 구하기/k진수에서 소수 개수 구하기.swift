@@ -1,11 +1,18 @@
 import Foundation
 
 func solution(_ n:Int, _ k:Int) -> Int {
-    return String(n, radix: k)
-        .split(separator: "0")
-        .compactMap { Int($0) }
-        .filter { isPrime($0) }
+    let s = String(n, radix: k)
+        
+    
+    
+    return s.split(separator: "0").filter { p in
+            !p.isEmpty &&
+            isPrime(Int(p)!) &&
+        (s.contains("0\(p)0") || s.contains("\(p)0") || s.contains("0\(p)") || s.contains(p))
+        }
         .count
+    
+    
 }
 
 private func isPrime(_ n: Int) -> Bool {
