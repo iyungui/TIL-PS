@@ -1,31 +1,25 @@
 import Foundation
 
-func solution(_ gems: [String]) -> [Int] {
-    let totalTypes = Set(gems).count
-
-    var gemCount = [String: Int]()
-
-    var left = 0
-    var minLength = Int.max
-    var ret = [1, gems.count]
-
-    for right in 0..<gems.count {
-        gemCount[gems[right], default: 0] += 1
-
-        while gemCount.count == totalTypes {
-            let length = right - left + 1
+func solution(_ gems:[String]) -> [Int] {
+    var minLength = 100004
+    var l = 0
+    var ret = [l, gems.count]
+    var gemsCount = [String: Int]()
+    var total = Set(gems).count
+    for r in 0..<gems.count {
+        gemsCount[gems[r], default: 0] += 1
+        while gemsCount.count == total {
+            let length = r - l + 1
             if length < minLength {
                 minLength = length
-                ret = [left + 1, right + 1]
+                ret = [l + 1, r + 1]
             }
-
-            gemCount[gems[left]]! -= 1
-            if gemCount[gems[left]]! == 0 {
-                gemCount.removeValue(forKey: gems[left])
+            gemsCount[gems[l]]! -= 1
+            if gemsCount[gems[l]]! == 0 {
+                gemsCount.removeValue(forKey: gems[l])
             }
-            left += 1
+            l += 1
         }
     }
-
     return ret
 }
