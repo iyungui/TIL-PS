@@ -1,48 +1,44 @@
 import Foundation
-func solution(_ info:[String], _ query:[String]) -> [Int] {
-    // info 전처리 (score는 [Int] 형태로 저장)
-    // 비트마스킹 (2^4)
-    var db = [String: [Int]]()
+
+func solution(_ info: [String], _ query: [String]) -> [Int] {
+    // O(50,000 * 100,000) -> O(n log n + q log n)
+    var dict: [String: [Int]] = [:]
+
     for i in info {
-        let parts = i.split(separator: " ").map { String($0) }
-        let score = Int(parts[4])!
+        let a = i.split(separator: " ").map { String($0) }
+        let score = Int(a[4])!
+        
 
         for mask in 0..<(1 << 4) {
             var key = ""
             for j in 0..<4 {
-                if (mask & (1 << j)) != 0 {
-                    key += parts[j]
+                if mask & (1 << j) != 0 {
+                    key += a[j]
                 } else {
                     key += "-"
                 }
             }
-            db[key, default: []].append(score)
+            dict[key, default: []].append(score)
         }
     }
-    // 점수 오름차순 정렬 (이분탐색을 위해) O(N log N)
-    db.forEach { 
-        db[$0] = $1.sorted()
+    dict.forEach {
+        dict[$0] = $1.sorted()
     }
-
+    
     var ret = [Int]()
 
     for q in query {
-        let parts = q.replacingOccurrences(of: " and ", with: " ").split(separator: " ").map { String($0) }
-        let key = parts[0] + parts[1] + parts[2] + parts[3]
-        let score = Int(parts[4])!
+        let a = q.replacingOccurrences(of: " and ", with: " ").split(separator: " ").map { String($0) }
+        let key = (a[0] + a[1] + a[2] + a[3])
+        let score = Int(a[4])!
 
-        if let scores: [Int] = db[key] {
-            // 이분탐색으로 score 이상인 점수의 개수 찾기
-            var left = 0
-            var right = scores.count
+        if let scores = dict[key] {
+            var left = 0, right = scores.count
 
             while left < right {
                 let mid = (left + right) / 2
-                if scores[mid] >= score {
-                    right = mid
-                } else {
-                    left = mid + 1
-                }
+                if scores[mid] >= score { right = mid }
+                else { left = mid + 1 }
             }
             ret.append(scores.count - left)
         } else {
