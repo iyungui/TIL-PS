@@ -27,16 +27,16 @@ func solution(_ user_id:[String], _ banned_id:[String]) -> Int {
     func go() -> Int {
         var s = Set<[Int]>()
         var visited = Array(repeating: false, count: user_id.count)
-        func backtrack(_ depth: Int, _ cur: [[Int]]) {
+        func backtrack(_ depth: Int, _ cur: [Int]) {
             if cur.count == arr.count {
-                s.insert(cur.reduce([]) { $0 + $1 }.sorted())
+                s.insert(cur.sorted())
                 return
             }
             for i in 0..<arr[depth].count {
                 let idx = arr[depth][i]
                 if visited[idx] { continue }
                 visited[idx] = true
-                backtrack(depth + 1, cur + [[idx]])
+                backtrack(depth + 1, cur + [idx])
                 visited[idx] = false
             }
         }
