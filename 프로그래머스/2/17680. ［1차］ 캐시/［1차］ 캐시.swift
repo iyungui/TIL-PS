@@ -1,20 +1,20 @@
 func solution(_ cacheSize:Int, _ cities:[String]) -> Int {
     guard cacheSize > 0 else { return cities.count * 5 }
-    
+    var cities = cities.map { $0.lowercased() }
     var cache = [String]()
     var totalTime = 0
-    let cities = cities.map { $0.lowercased() }
     
     for city in cities {
+        // cache hit
         if let index = cache.firstIndex(of: city) {
-            // Cache Hit
             cache.remove(at: index)
             cache.append(city)
             totalTime += 1
-        } else {
-            // Cache Miss
+        }
+        // cache miss
+        else {
             if cache.count >= cacheSize {
-                cache.removeFirst()
+                _ = cache.removeFirst()
             }
             cache.append(city)
             totalTime += 5
