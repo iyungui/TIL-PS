@@ -1,6 +1,6 @@
 func solution(_ n:Int, _ t:Int, _ m:Int, _ p:Int) -> String {
     var arr: [Character] = []
-    for i in 0..<(t * m) {
+    for i in arr.count..<(t * m) {
         let b = String(i, radix: n)
         for bb in b { arr.append(bb) }
     }
@@ -13,3 +13,4 @@ func solution(_ n:Int, _ t:Int, _ m:Int, _ p:Int) -> String {
     }
     return ret.uppercased()
 }
+
