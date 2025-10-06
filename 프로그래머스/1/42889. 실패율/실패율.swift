@@ -13,11 +13,7 @@ func solution(_ N:Int, _ stages:[Int]) -> [Int] {
             rates[i] = rate
         }
         else {
-            if start <= stages.count {
-                rates[i] = 0
-            } else {
-                rates[i] = 1
-            }
+            rates[i] = (start <= stages.count) ? 0 : 1
         }
     }
     
