@@ -11,10 +11,7 @@ func main() {
     var cur = 0
 
     for (arrivalTime, inspectionTime) in arr {
-        // 만약 현재 시간이 소의 도착시간보다 빠르다면, 현재 시간 업데이트
-        if arrivalTime > cur { cur = arrivalTime }
-
-        // 소의 검문시간 추가
+        cur = max(cur, arrivalTime)
         cur += inspectionTime
     }
 
