@@ -1,35 +1,24 @@
 import Foundation
 
-
 func main() {
     let n = Int(readLine()!)!
-    var arr = [(Int, Int)]()   // (소 도착 시간, 검문 시간)
-    var ret = 0   // 모든 소가 농장에 도착하는 데 걸리는 최소 시간
-
+    var arr = [(Int, Int)]()
     for _ in 0..<n {
-        let input = readLine()!.split(separator: " ").map { Int($0)! }
-        let a = input[0]    // 소 도착 시간
-        let b = input[1]    // 검문 시간
-        arr.append((a, b))
+        let a = readLine()!.split(separator: " ").map { Int($0)! }
+        arr.append((a[0], a[1]))
     }
-
-    // 도착 시간 기준 오름차순 정렬
     arr.sort { $0.0 < $1.0 }
-
-    var currentTime = 0  // 현재 시간
+    var cur = 0
 
     for (arrivalTime, inspectionTime) in arr {
-        // 소가 도착한 시간이 현재 시간보다 늦으면, 현재 시간을 소의 도착 시간으로 갱신
-        if arrivalTime > currentTime {
-            currentTime = arrivalTime
-        }
-        // 검문 시간을 더해 현재 시간 갱신
-        currentTime += inspectionTime
-        // 모든 소가 농장에 도착하는 데 걸리는 최소 시간 갱신
-        ret = currentTime
+        // 만약 현재 시간이 소의 도착시간보다 빠르다면, 현재 시간 업데이트
+        if arrivalTime > cur { cur = arrivalTime }
+
+        // 소의 검문시간 추가
+        cur += inspectionTime
     }
 
-    print(ret)
+    print(cur)
 }
 
-main()  // 15
+main()
