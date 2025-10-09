@@ -15,18 +15,17 @@ func solution(_ users:[[Int]], _ emoticons:[Int]) -> [Int] {
             let userDiscount = user[0]
             let userTotalMoney = user[1]
             var userTotalSales = 0
-            var plus = false
             
             for (discount, emoticonCost) in zip(discounts, emoticons) {
                 if userDiscount > discount { continue }
-                userTotalSales += emoticonCost * (100 - discount) / 100
+                let discounted = emoticonCost * (100 - discount) / 100
+                userTotalSales += discounted
                 if userTotalSales >= userTotalMoney {
-                    plus = true
+                    curPlusCount += 1
                     userTotalSales = 0
                     break
                 }
             }
-            if plus { curPlusCount += 1 }
             curSales += userTotalSales
         }
         
@@ -37,21 +36,18 @@ func solution(_ users:[[Int]], _ emoticons:[Int]) -> [Int] {
         }
         // 그게 아니라면, 가입자수는 같고 현재 판매액이 더 크다면 업데이트
         else if maxPlusCount == curPlusCount && maxSales < curSales {
-            maxPlusCount = curPlusCount
             maxSales = curSales
         }
         // 그외는 업데이트 x
     }
-    
-    let totalCases = Int(pow(4.0, Double(n)))   // 1 << (2 * n)과 동일
-    
-    for i in 0..<totalCases {
+
+    for mask in 0..<(1 << (2 * n)) {
         var discounts = [Int]()
-        var num = i
         
-        for _ in 0..<n {
-            discounts.append(rates[num % 4])
-            num /= 4
+        for i in 0..<n {
+            let shift = i * 2
+            let value = (mask >> shift) & 0b11  // 2비트 추출
+            discounts.append(rates[value])
         }
         
         go(discounts)
