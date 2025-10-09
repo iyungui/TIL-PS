@@ -10,23 +10,8 @@ func solution(_ relation:[[String]]) -> Int {
     }
     
     func check(_ combi: [Int]) -> Bool {
-        var picked = Array(repeating: [String](), count: n)
-
-        for c: Int in combi {
-            for i in 0..<n {
-                for j in 0..<m where j == c {
-                    picked[i].append(relation[i][j])
-                }
-            }
-        }
-
-        var sets = Set<[String]>()
-
-        for p: [String] in picked {
-            if sets.contains(p) { return false }
-            sets.insert(p)
-        }
-        return true
+        let picked = (0..<n).map { i in combi.map { relation[i][$0] } }
+        return Set(picked).count == n
     }
     
     var sets = Set<Set<Int>>()
