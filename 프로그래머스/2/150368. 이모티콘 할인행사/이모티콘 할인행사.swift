@@ -1,50 +1,61 @@
 import Foundation
 
 func solution(_ users:[[Int]], _ emoticons:[Int]) -> [Int] {
-    var maxPlus = 0, maxSales = 0
     let rates = [10, 20, 30, 40]
+    let n = emoticons.count
     
-    func combi(_ idx: Int, _ cur: [Int]) {
-        if idx == emoticons.count {
-            go(cur)
-            return
-        }
-        
-        for rate in rates {
-            combi(idx + 1, cur + [rate])
-        }
-    }
+    var maxPlusCount = 0
+    var maxSales = 0
     
     func go(_ discounts: [Int]) {
-        var curPlus = 0
         var curSales = 0
+        var curPlusCount = 0
         
         for user in users {
-            let userRate = user[0]
-            var userMoney = user[1]
+            let userDiscount = user[0]
+            let userTotalMoney = user[1]
             var userTotalSales = 0
+            var plus = false
             
-            for i in 0..<emoticons.count {
-                if userRate <= discounts[i] {
-                    userTotalSales += emoticons[i] * (100 - discounts[i]) / 100
+            for (discount, emoticonCost) in zip(discounts, emoticons) {
+                if userDiscount > discount { continue }
+                userTotalSales += emoticonCost * (100 - discount) / 100
+                if userTotalSales >= userTotalMoney {
+                    plus = true
+                    userTotalSales = 0
+                    break
                 }
             }
-            
-            if userMoney <= userTotalSales {
-                curPlus += 1
-            } else {
-                curSales += userTotalSales
-            }
+            if plus { curPlusCount += 1 }
+            curSales += userTotalSales
         }
         
-        // 해당 조합에서, maxPlus, maxSales 업데이트
-        if maxPlus < curPlus || (maxPlus == curPlus && maxSales < curSales) {
-            maxPlus = curPlus
+        // 현재 이모티콘 플러스 가입자수가 더 많다면 업데이트
+        if maxPlusCount < curPlusCount {
+            maxPlusCount = curPlusCount
             maxSales = curSales
         }
+        // 그게 아니라면, 가입자수는 같고 현재 판매액이 더 크다면 업데이트
+        else if maxPlusCount == curPlusCount && maxSales < curSales {
+            maxPlusCount = curPlusCount
+            maxSales = curSales
+        }
+        // 그외는 업데이트 x
     }
     
-    combi(0, [])
+    let totalCases = Int(pow(4.0, Double(n)))   // 1 << (2 * n)과 동일
     
-    return [maxPlus, maxSales]
+    for i in 0..<totalCases {
+        var discounts = [Int]()
+        var num = i
+        
+        for _ in 0..<n {
+            discounts.append(rates[num % 4])
+            num /= 4
+        }
+        
+        go(discounts)
+    }
+    
+    return [maxPlusCount, maxSales]
 }
