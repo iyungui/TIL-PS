@@ -1,21 +1,6 @@
 import Foundation
 
-func solution(_ n:Int, _ k:Int) -> Int {
-    let s = String(n, radix: k)
-        
-    
-    
-    return s.split(separator: "0").filter { p in
-            !p.isEmpty &&
-            isPrime(Int(p)!) &&
-        (s.contains("0\(p)0") || s.contains("\(p)0") || s.contains("0\(p)") || s.contains(p))
-        }
-        .count
-    
-    
-}
-
-private func isPrime(_ n: Int) -> Bool {
+func isPrime(_ n: Int) -> Bool {
     if n <= 1 { return false }
     if n == 2 { return true }
     if n % 2 == 0 { return false }
@@ -25,4 +10,10 @@ private func isPrime(_ n: Int) -> Bool {
         i += 2
     }
     return true
+}
+
+func solution(_ n:Int, _ k:Int) -> Int {
+    let kBase = String(n, radix: k)
+    let parts = kBase.split(separator: "0").map { Int($0)! }
+    return parts.map { isPrime($0) ? 1 : 0 }.reduce(0, +)
 }
