@@ -1,16 +1,17 @@
 func solution(_ n:Int, _ t:Int, _ m:Int, _ p:Int) -> String {
+    let needed = p + (t - 1) * m    // 필요한 문자열의 길이
+    
     var arr: [Character] = []
-    for i in arr.count..<(t * m) {
-        let b = String(i, radix: n)
-        for bb in b { arr.append(bb) }
+    var num = 0
+    while arr.count < needed {
+        arr += String(num, radix: n).uppercased()
+        num += 1
     }
+    
     var ret = ""
-    var i = p - 1
-    while i < arr.count {
+    for i in stride(from: p - 1, to: arr.count, by: m) {
         ret.append(arr[i])
         if ret.count == t { break }
-        i += m
     }
-    return ret.uppercased()
+    return ret
 }
-
