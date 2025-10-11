@@ -1,43 +1,40 @@
 import Foundation
 
-func solution(_ numbers: [Int], _ hand: String) -> String {
-    var ret = ""
-    var l = -1, r = -2
-    func getDist(_ cur: Int, _ target: Int) -> Int {
-        let mp = [[1,2,3],[4,5,6],[7,8,9],[-1,0,-2]]
-        var s = (0, 0), e = (0, 0)
-        for i in 0..<4 {
-            for j in 0..<3 {
-                if mp[i][j] == cur { s = (i, j) }
-                if mp[i][j] == target { e = (i, j) }
-            }
+private func getDist(_ n: Int, _ target: Int) -> Int {
+    let mp = [[1,2,3], [4,5,6], [7,8,9], [-1,0,-2]]
+    var (y1,y2,x1,x2) = (0,0,0,0)
+    for i in 0..<4 {
+        for j in 0..<3 {
+            if mp[i][j] == n { y1 = i; x1 = j }
+            if mp[i][j] == target { y2 = i; x2 = j }
         }
-        return abs(s.0 - e.0) + abs(s.1 - e.1)
     }
+    
+    return abs(y1 - y2) + abs(x1 - x2)
+}
 
-    for n in numbers {
-        switch n {
-            case 1, 4, 7: ret += "L"; l = n
-            case 3, 6, 9: ret += "R"; r = n
-            default:
-                let distL = getDist(l, n)
-                let distR = getDist(r, n)
-
-                if distL == distR {
-                    if hand == "left" {
-                        ret += "L"
-                        l = n
-                    } else {
-                        ret += "R"
-                        r = n
-                    }
-                }
-                else if distL < distR {
-                    ret += "L"; l = n
-                }
-                else {
-                    ret += "R"; r = n
-                }
+func solution(_ numbers:[Int], _ hand:String) -> String {
+    var ret = ""
+    var left = -1, right = -2
+    for num in numbers {
+        if num == 1 || num == 4 || num == 7 {
+            ret += "L"
+            left = num
+        }
+        else if num == 3 || num == 6 || num == 9 {
+            ret += "R"
+            right = num
+        }
+        else {
+            let l = getDist(left, num)
+            let r = getDist(right, num)
+            
+            if l == r {
+                if hand == "left" { ret += "L"; left = num }
+                else { ret += "R"; right = num }
+            }
+            else if l < r { ret += "L"; left = num }
+            else { ret += "R"; right = num }
         }
     }
     return ret
