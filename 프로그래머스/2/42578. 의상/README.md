@@ -1,14 +1,16 @@
 # [level 2] 의상 - 42578 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42578) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42578?language=cpp) 
 
 ### 성능 요약
 
-메모리: 16.3 MB, 시간: 0.10 ms
+메모리: 4.21 MB, 시간: 0.03 ms
 
 ### 구분
 
-코딩테스트 연습 > 해시
+코딩테스트 연습
+ > 해시
+
 
 ### 채점결과
 
@@ -16,7 +18,7 @@
 
 ### 제출 일자
 
-2025년 10월 12일 23:06:20
+2025년 10월 15일 00:40:17
 
 ### 문제 설명
 
