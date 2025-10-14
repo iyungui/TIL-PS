@@ -42,20 +42,3 @@ vector<int> solution(vector<string> genres, vector<int> plays) {
 
     return answer;
 }
-
-int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(NULL); cout.tie(NULL);
-
-    vector<string> genres = {"classic", "pop", "classic", "classic", "pop"};
-    vector<int> plays = {500, 600, 150, 800, 2500};
-    vector<int> result = solution(genres, plays);
-
-    for (int i : result) {
-        cout << i << " ";
-    }
-    
-    cout << '\n';
-     
-    return 0;
-}
