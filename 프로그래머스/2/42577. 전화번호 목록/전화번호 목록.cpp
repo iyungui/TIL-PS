@@ -3,12 +3,19 @@
 using namespace std;
 
 bool solution(vector<string> phone_book) {
-    sort(phone_book.begin(), phone_book.end());
+    unordered_set<string> hash_set;
     
-    for (int i = 0; i < phone_book.size() - 1; i++) {
-        if (phone_book[i] == phone_book[i + 1].substr(0, phone_book[i].size())) {
-            return false;
+    for(const string& phone: phone_book) {
+        hash_set.insert(phone);
+    }
+    
+    for (const string& phone: phone_book) {
+        for(int i = 1; i < phone.size(); i++) {
+            if(hash_set.find(phone.substr(0, i)) != hash_set.end()) {
+                return false;
+            }
         }
     }
+    
     return true;
 }
