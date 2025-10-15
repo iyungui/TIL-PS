@@ -1,14 +1,16 @@
 # [level 2] 프로세스 - 42587 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42587) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42587?language=cpp) 
 
 ### 성능 요약
 
-메모리: 16.4 MB, 시간: 1.87 ms
+메모리: 4.22 MB, 시간: 0.12 ms
 
 ### 구분
 
-코딩테스트 연습 > 스택／큐
+코딩테스트 연습
+ > 스택／큐
+
 
 ### 채점결과
 
@@ -16,7 +18,7 @@
 
 ### 제출 일자
 
-2025년 05월 08일 15:37:21
+2025년 10월 15일 18:38:47
 
 ### 문제 설명
 
