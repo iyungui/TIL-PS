@@ -1,24 +1,35 @@
 import Foundation
 
 func solution(_ priorities:[Int], _ location:Int) -> Int {
-    // 튜플 사용 (우선순위, 원래 위치)
-    var queue: [(priority: Int, originalIndex: Int)] = priorities.enumerated().map { ($1, $0) }
-    var count = 0   // 큐에서 꺼낸 횟수
+    var queue = [(Int, Int)]()
+    for (idx, prior) in priorities.enumerated() {
+        queue.append((idx, prior))
+    }
+    var queueIdx = 0
+    var cnt = 0
     
-    while !queue.isEmpty {
-        let current = queue.removeFirst()
+    while queueIdx < queue.count {
+        let cur = queue[queueIdx]
+        queueIdx += 1
+        var temp = queueIdx
+        var flag = false
         
-        // 남은 프로세스 중에서 더 높은 우선순위를 가진 프로세스가 있는지 확인
-        if queue.contains(where: { $0.priority > current.priority }) {
-            // 있다면 현재 프로세스를 큐의 맨 뒤로 이동
-            queue.append(current)
+        while temp < queue.count {
+            if cur.1 < queue[temp].1 {
+                flag = true
+                break
+            }
+            temp += 1
+        }
+        if flag {
+            queue.append(cur)
         } else {
-            // 없다면 현재 프로세스를 실행
-            count += 1
-            
-            // current가 우리가 찾는 프로세스인지 확인
-            if current.originalIndex == location { return count }
+            cnt += 1
+            if cur.0 == location {
+                return cnt
+            }
         }
     }
-    return 0
+    
+    return cnt
 }
