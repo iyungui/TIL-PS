@@ -11,19 +11,15 @@ vector<int> solution(vector<int> progresses, vector<int> speeds) {
         int day = (remaining + speeds[i] - 1) / speeds[i];
         days.push_back(day);
     }
-    
     int i = 0;
-    while (i < days.size()) {
-        int count = 1;
-        int deployDay = days[i];
-        
-        while(i + count < days.size() && days[i + count] <= deployDay) {
-            count++;
+    while(i < days.size()) {
+        int cnt = 1;
+        int deploy = days[i];
+        while (i + cnt < days.size() && days[i + cnt] <= deploy) {
+            cnt++;
         }
-        
-        answer.push_back(count);
-        i += count;
+        answer.push_back(cnt);
+        i += cnt;
     }
-    
     return answer;
 }
