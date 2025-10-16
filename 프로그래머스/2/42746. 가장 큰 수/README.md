@@ -1,14 +1,16 @@
 # [level 2] 가장 큰 수 - 42746 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42746?language=swift) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42746?language=cpp) 
 
 ### 성능 요약
 
-메모리: 22.9 MB, 시간: 374.92 ms
+메모리: 10.6 MB, 시간: 66.08 ms
 
 ### 구분
 
-코딩테스트 연습 > 정렬
+코딩테스트 연습
+ > 정렬
+
 
 ### 채점결과
 
@@ -16,7 +18,7 @@
 
 ### 제출 일자
 
-2025년 05월 22일 23:43:53
+2025년 10월 16일 11:29:01
 
 ### 문제 설명
 
