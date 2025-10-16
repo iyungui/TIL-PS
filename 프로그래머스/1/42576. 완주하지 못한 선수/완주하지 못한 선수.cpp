@@ -3,16 +3,11 @@
 using namespace std;
 
 string solution(vector<string> participant, vector<string> completion) {
-    unordered_map<string, int> mp;
+    sort(participant.begin(), participant.end());
+    sort(completion.begin(), completion.end());
     
-    for(const string& par : participant) {
-        mp[par]++;
+    for (int i = 0; i < completion.size(); i++) {
+        if(participant[i] != completion[i]) return participant[i];
     }
-    for(const string& com : completion) {
-        mp[com]--;
-    }
-    for(const auto& it: mp) {
-        if (it.second > 0) return it.first;
-    }
-    return "";
+    return participant[participant.size() - 1];
 }
