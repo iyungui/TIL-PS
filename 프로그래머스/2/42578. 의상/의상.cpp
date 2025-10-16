@@ -3,16 +3,13 @@
 using namespace std;
 
 int solution(vector<vector<string>> clothes) {
-    int answer = 1;
     unordered_map<string, int> mp;
-    
-    for(vector<string> cloth: clothes) {
-        string type = cloth[1];
-        mp[type] += 1;
+    for(const vector<string>& c : clothes) {
+        mp[c[1]]++;
     }
-    
-    for (auto& pair: mp) {
-        answer *= (pair.second + 1);
+    int ret = 1;
+    for(const auto& it: mp) {
+        ret *= it.second + 1;
     }
-    return answer - 1;
+    return ret - 1;
 }
