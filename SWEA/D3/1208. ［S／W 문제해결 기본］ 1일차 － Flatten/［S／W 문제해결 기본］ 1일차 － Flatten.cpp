@@ -4,41 +4,37 @@ using namespace std;
 
 const int TC = 10;
 const int n = 100;
-int dump;
-int a[n];
+int dump, a, cnt[n + 1];
 
 int main() {
     ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
-    cout.tie(nullptr);
+    cin.tie(nullptr); cout.tie(nullptr);
 
     for(int t = 1; t <= TC; t++) {
         cin >> dump;
-        for(int i = 0; i < n; i++) cin >> a[i];
 
-        while(dump--) {
-            // O(n)
-            int maxIdx = 0;
-            for(int i = 1; i < n; i++) {
-                if(a[i] > a[maxIdx]) maxIdx = i;
-            }
-
-            // O(n)
-            int minIdx = 0;
-            for(int i = 1; i < n; i++) {
-                if(a[i] < a[minIdx]) minIdx = i;
-            }
-
-            if(a[maxIdx] - a[minIdx] <= 1) break;
-            
-            a[maxIdx]--;
-            a[minIdx]++;
+        int low = 101;
+        int high = 0;
+        memset(cnt, 0, sizeof(cnt));
+        
+        for(int i = 0; i < n; i++) {
+            cin >> a;
+            cnt[a]++;
+            low = min(low, a);
+            high = max(high, a);
         }
 
-        int maxVal = *max_element(a, a + n);
-        int minVal = *min_element(a, a + n);
+        while(dump-- && high - low > 1) {
+            cnt[high]--;
+            cnt[high - 1]++;
+            cnt[low]--;
+            cnt[low + 1]++;
 
-        cout << "#" << t << " " << (maxVal - minVal) << '\n';
+            while(cnt[low] == 0) low++;
+            while(cnt[high] == 0) high--;
+        }
+
+        cout << "#" << t << " " << high - low << '\n';
     }
 
     return 0;
