@@ -3,47 +3,36 @@
 using namespace std;
 
 int T, N, cnt;
-int a[14][14];
+int col[14];
 
-bool check(int row, int col) {
-    for(int i = 0; i < row; i++) {
-        if(a[i][col]) return false;
-    }
-    
-    int r = row - 1, c = col - 1;
-    while(r >= 0 && c >= 0) {
-        if(a[r][c]) return false;
-        r--; c--;
-    }
-    
-    r = row - 1, c = col + 1;
-    while(r >= 0 && c < N) {
-        if(a[r][c]) return false;
-        r--; c++;
+bool check(int r, int c) {
+    for(int i = 0; i < r; i++) {
+        if(col[i] == c) return false;
+        if(abs(col[i] - c) == abs(i - r)) return false;        
     }
     return true;
 }
 
-void backtrack(int row) {
-    if(row == N) {
+void backtrack(int r) {
+    if(r == N) {
         cnt++; return;
     }
-    for(int col = 0; col < N; col++) {
-        if(check(row, col)) {
-            a[row][col] = 1;
-            backtrack(row + 1);
-            a[row][col] = 0;
+    for(int c = 0; c < N; c++) {
+        if(check(r, c)) {
+            col[r] = c;
+            backtrack(r + 1);
         }
     }
 }
 
 int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr); cout.tie(nullptr);
     cin >> T;
     for(int t = 1; t <= T; t++) {
         cin >> N;
         cnt = 0;
-        memset(a, 0, sizeof(a));
-
+        memset(col, -1, sizeof(col));
         backtrack(0);
         cout << "#" << t << " " << cnt << '\n';
     }
