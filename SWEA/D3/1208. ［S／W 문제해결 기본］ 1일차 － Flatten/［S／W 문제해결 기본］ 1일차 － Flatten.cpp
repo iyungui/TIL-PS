@@ -4,7 +4,7 @@ using namespace std;
 
 const int TC = 10;
 const int n = 100;
-int dump, a, cnt[n + 1];
+int dump, a[n];
 
 int main() {
     ios_base::sync_with_stdio(false);
@@ -13,28 +13,30 @@ int main() {
     for(int t = 1; t <= TC; t++) {
         cin >> dump;
 
-        int low = 101;
-        int high = 0;
-        memset(cnt, 0, sizeof(cnt));
-        
+        priority_queue<int> maxHeap;
+        priority_queue<int, vector<int>, greater<int>> minHeap;
+
+        // O(n log n)
         for(int i = 0; i < n; i++) {
-            cin >> a;
-            cnt[a]++;
-            low = min(low, a);
-            high = max(high, a);
+            cin >> a[i];
+            maxHeap.push(a[i]); minHeap.push(a[i]);
         }
 
-        while(dump-- && high - low > 1) {
-            cnt[high]--;
-            cnt[high - 1]++;
-            cnt[low]--;
-            cnt[low + 1]++;
+        while(dump--) {
+            int maxV = maxHeap.top();
+            int minV = minHeap.top();
 
-            while(cnt[low] == 0) low++;
-            while(cnt[high] == 0) high--;
+            if(maxV - minV <= 1) break;
+
+            maxHeap.pop();
+            minHeap.pop();
+            maxHeap.push(maxV - 1);
+            minHeap.push(minV + 1);
         }
+        int maxV = maxHeap.top();
+        int minV = minHeap.top();
 
-        cout << "#" << t << " " << high - low << '\n';
+        cout << "#" << t << " " << maxV - minV << '\n'; 
     }
 
     return 0;
