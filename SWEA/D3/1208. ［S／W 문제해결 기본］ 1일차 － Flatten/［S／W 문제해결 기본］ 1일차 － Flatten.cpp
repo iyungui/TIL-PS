@@ -4,8 +4,9 @@ using namespace std;
 
 const int TC = 10;
 const int n = 100;
-int dump;
-int a[n];
+int dump, a;
+int low = 101, high;
+int cnt[n + 1];
 
 int main() {
     ios_base::sync_with_stdio(false);
@@ -14,17 +15,27 @@ int main() {
 
     for(int t = 1; t <= TC; t++) {
         cin >> dump;
-        for(int i = 0; i < n; i++) cin >> a[i];
+        low = 101; high = 0;
+        memset(cnt, 0, sizeof(cnt));
 
-        while(dump--) {
-            sort(a, a + n);
-            a[n - 1]--;
-            a[0]++;
-            if(a[n - 1] - a[0] <= 1) break; 
+        for(int i = 0; i < n; i++) {
+            cin >> a;
+            cnt[a]++;
+            low = min(low, a);
+            high = max(high, a);
         }
-        sort(a, a + n);
-        int ret = a[n - 1] - a[0];
-        cout << "#" << t << " " << ret << '\n';
+
+        while(dump-- && high - low > 1) {
+            cnt[high]--;
+            cnt[high - 1]++;
+        
+            cnt[low]--;
+            cnt[low + 1]++;
+
+            while(cnt[low] == 0) low++;
+            while(cnt[high] == 0) high--;
+        }
+        cout << "#" << t << " " << high - low << '\n';
     }
 
     return 0;
