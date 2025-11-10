@@ -2,39 +2,42 @@
 
 using namespace std;
 
-int T;
-string n;
-int cnt;
+int T, ret, c;
+string s;
 map<pair<string, int>, int> dp;
-int ret, result;
 
-int dfs(string num, int remain) {
-    if(remain == 0) return stoi(num);
-    if(dp.count({num, remain})) {
-        return dp[{num, remain}];
+int go(string s, int cnt) {
+    if(cnt == c) {
+        return stoi(s);
     }
-    int len = num.size();
-    int maxValue = 0;
-    for(int i = 0; i < len; i++) {
-        for(int j = i + 1; j < len; j++) {
-            swap(num[i], num[j]);
-            result = dfs(num, remain - 1);
-            swap(num[j], num[i]);
-            maxValue = max(maxValue, result);
+    if(dp.count({s, cnt})) return dp[{s, cnt}];
+
+    int maxVal = 0;
+    for(int i = 0; i < s.size(); i++) {
+        for(int j = i + 1; j < s.size(); j++) {
+            if(s[i] == s[j]) continue;
+            swap(s[i], s[j]);
+            int result = go(s, cnt + 1);
+            swap(s[j], s[i]);
+            maxVal = max(maxVal, result);
         }
     }
-    dp[{num, remain}] = maxValue;
-    return maxValue;
+    dp[{s, cnt}] = maxVal;
+    return maxVal;
 }
 
 int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr); cout.tie(nullptr);
+
     cin >> T;
+
     for(int t = 1; t <= T; t++) {
         dp.clear();
-        cin >> n >> cnt;
-        ret = dfs(n, cnt);
-
+        cin >> s >> c;
+        ret = go(s, 0);
         cout << "#" << t << " " << ret << '\n';
     }
+
     return 0;
 }
