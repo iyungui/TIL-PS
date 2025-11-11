@@ -2,29 +2,31 @@
 
 using namespace std;
 
-int T, n, k, a[24];
-
-int solve() {
-    int dp[1001] = {0};
-    dp[0] = 1;
-
-    for(int i = 0; i < n; i++) {
-        for(int j = k; j >= a[i]; j--) {
-            dp[j] += dp[j - a[i]];
-        }
-    }
-    return dp[k];
-}
+int T, n, k;
+int dp[1004];
+int a[24];
 
 int main() {
-    ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
-    
     cin >> T;
 
     for(int t = 1; t <= T; t++) {
         cin >> n >> k;
+
+        memset(dp, 0, sizeof(dp));
+        memset(a, 0, sizeof(a));
+
         for(int i = 0; i < n; i++) cin >> a[i];
-        cout << "#" << t << " " << solve() << '\n';
+
+
+        dp[0] = 1;
+
+        for(int i = 0; i < n; i++) {
+            for(int j = k; j >= a[i]; j--) {
+                dp[j] += dp[j - a[i]];
+            }
+        }
+
+        cout << "#" << t << " " << dp[k] << '\n';
     }
 
     return 0;
