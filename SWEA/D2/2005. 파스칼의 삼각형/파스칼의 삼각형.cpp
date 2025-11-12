@@ -6,16 +6,12 @@ int T, n;
 int a[14][14];
 
 void pascal() {
-    // j가 0인 부분은 모두 1로 만들기
-    // j가 i인 부분은 모두 1로 만들기
     for(int i = 0; i < n; i++) {
-        for(int j = 0; j < n; j++) {
-            a[i][0] = 1;
-            a[i][i] = 1;
-        }
+        a[i][0] = 1;
+        a[i][i] = 1;
     }
     for(int i = 1; i < n; i++) {
-        for(int j = 1; j < n; j++) {
+        for(int j = 1; j < i; j++) {
             a[i][j] = a[i-1][j-1] + a[i-1][j];
         }
     }
