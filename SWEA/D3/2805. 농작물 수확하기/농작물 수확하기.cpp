@@ -1,33 +1,40 @@
 #include<bits/stdc++.h>
-
 using namespace std;
 
 int T, n;
-int arr[52][52];
+int a[54][54];
 
 int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr); cout.tie(nullptr);
     cin >> T;
+
     for(int t = 1; t <= T; t++) {
+        // input
         cin >> n;
-        memset(arr, 0, sizeof(arr));
+        memset(a, 0, sizeof(a));
+
+        string s;
         for(int i = 0; i < n; i++) {
-            string temp;
-            cin >> temp;
+            cin >> s;
             for(int j = 0; j < n; j++) {
-                arr[i][j] = (int)temp[j] - '0';
+                a[i][j] = (int)s[j] - '0';
             }
         }
+
+        int ret = 0;
         int mid = n / 2;
-        int sum = 0;
         for(int i = 0; i < n; i++) {
             int j = (i <= mid) ? i : n - 1 - i;
+
+            int sum = a[i][mid];
             for(int k = 1; k <= j; k++) {
-                sum += arr[i][mid - k];
-                sum += arr[i][mid + k];
+                ret += a[i][mid - k];
+                ret += a[i][mid + k];
             }
-            sum += arr[i][mid];
+            ret += sum;
         }
-        cout << "#" << t << " " << sum << '\n';
+
+        cout << "#" << t << " " << ret << '\n';
     }
-    return 0;
 }
