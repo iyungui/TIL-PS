@@ -2,50 +2,37 @@
 
 using namespace std;
 
-const int TC = 10;
-int n;
-vector<string> a;
-
-int solve() {
-    int ret = 0;
-    for(int i = 0; i < 8; i++) {
-        for(int j = 0; j <= 8 - n; j++) {
-            string s = a[i].substr(j, n);
-            string temp = s;
-            reverse(s.begin(), s.end());
-            if(s == temp) ret++;
-        }
-    }
-
-    for(int i = 0; i < 8; i++) {
-        for(int j = 0; j <= 8 - n; j++) {
-            string s = "";
-            for(int k = 0; k < n; k++) {
-                s += a[j + k][i];
-            }
-            string temp = s;
-            reverse(s.begin(), s.end());
-            if(s == temp) ret++;
-        }
-    }
-    return ret;
-}
+const int T = 10;
+const int n = 8;
+int m;  // 찾아야 하는 회문의 길이
+string a[10];
 
 int main() {
-    ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
+    for(int t = 1; t <= T; t++) {
+        cin >> m;
+        for(int i = 0; i < n; i++) cin >> a[i];
 
-    for(int t = 1; t <= TC; t++) {
-        cin >> n;
-        a.clear();
-        for(int i = 0; i < 8; i++) {
-            string s; 
-            cin >> s;
-            a.push_back(s);
+        int ret = 0;
+        for(int i = 0; i < n; i++) {
+            // 가로
+            for(int j = 0; j <= n - m; j++) {
+                string str = a[i].substr(j, m);
+                string temp = str;
+                reverse(str.begin(), str.end());
+                if(str == temp) ret++;
+            }
+            for(int j = 0; j <= n - m; j++) {
+                string str = "";
+                for(int k = j; k < j + m; k++) {
+                    str += a[k][i];
+                }
+                string temp = str;
+                reverse(str.begin(), str.end());
+                if(str == temp) ret++;
+            }
         }
-
-        int cnt = solve();
-
-        cout << "#" << t << " " << cnt << '\n';
+        cout << "#" << t << " " << ret << '\n';
     }
+
     return 0;
 }
