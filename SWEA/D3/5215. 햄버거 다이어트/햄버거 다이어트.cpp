@@ -1,37 +1,35 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int TC;
-int N, L;
-int T[1004], K[1004];
+int T;
+int n, l;
+int a[24], k[24];
 int ret;
-
-void go(int idx, int score, int kcal) {
-    if(idx == N) {
-        ret = max(ret, score);
+void go(int i, int kcal, int sum) {
+    if(i == n) {
+        ret = max(ret, sum);
         return;
     }
-
-    go(idx + 1, score, kcal);
-    if(kcal + K[idx] <= L) go(idx + 1, score + T[idx], kcal + K[idx]);
+    go(i+1, kcal, sum);
+    if(kcal + k[i] <= l) {
+        go(i+1, kcal + k[i], sum + a[i]);
+    }
 }
 
 int main() {
-    ios_base::sync_with_stdio(false); cout.tie(nullptr); cin.tie(nullptr);
-    cin >> TC;
-    for(int t = 1; t <= TC; t++) {
-        cin >> N >> L;
-        memset(T, 0, sizeof(T));
-        memset(K, 0, sizeof(K));
-
-        for(int i = 0; i < N; i++) {
-            cin >> T[i] >> K[i];
-        }
+    cin >> T;   
+    for(int t = 1; t <= T; t++) {
+        memset(a, 0, sizeof(a));
+        memset(k, 0, sizeof(k));
 
         ret = 0;
+        cin >> n >> l;
+
+        for(int i = 0; i < n; i++) {
+            cin >> a[i] >> k[i];
+        }
         go(0, 0, 0);
 
         cout << "#" << t << " " << ret << '\n';
     }
-    return 0;
 }
