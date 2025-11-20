@@ -2,30 +2,31 @@
 
 using namespace std;
 
-int T, n, k, cnt, a[24];
-
-void go(int i, int sum) {
-    if(sum == k) {
-        cnt++;
-        return;
-    }
-    if(i == n) return;
-    go(i + 1, sum);
-    if(sum + a[i] <= k) go(i + 1, sum + a[i]);
-}
+int T, n, k, a[24];
+int dp[24][1004];
 
 int main() {
     cin >> T;
 
     for(int t = 1; t <= T; t++) {
-        cnt = 0;
+        memset(dp, 0, sizeof(dp));
+        memset(a, 0, sizeof(a));
         cin >> n >> k;
-        for(int i = 0; i < n; i++) {
+        for(int i = 1; i <= n; i++) {
             cin >> a[i];
         }
-        go(0, 0);
+        
+        dp[0][0] = 1;
 
-        cout << "#" << t << " " << cnt << '\n';
+        for(int i = 1; i <= n; i++) {
+            for(int j = 0; j <= k; j++) {
+                dp[i][j] = dp[i-1][j];
+                if(j >= a[i]) dp[i][j] += dp[i-1][j-a[i]];
+            }
+        }
+        
+
+        cout << "#" << t << " " << dp[n][k] << '\n';
     }
     return 0;
 }
