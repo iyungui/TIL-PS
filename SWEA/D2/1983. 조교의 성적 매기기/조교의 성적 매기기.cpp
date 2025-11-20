@@ -1,47 +1,47 @@
 #include<bits/stdc++.h>
-
 using namespace std;
 
-int T, n, k;
-string grade[] = {"A+", "A0", "A-", "B+", "B0", "B-", "C+", "C0", "C-", "D0"};
+int T, n, k; 
+double mid, final, assign;
 
 struct Student {
     int id;
     double total;
+};
 
-    bool operator<(const Student& other) const {
-        return total > other.total;
-    }
+bool cmp(const Student & a, const Student & b) {
+    return a.total > b.total;
+}
 
+const string grade[] = {
+    "A+", "A0", "A-", "B+", "B0", "B-", "C+", "C0", "C-", "D0" 
 };
 
 int main() {
     cin >> T;
     for(int t = 1; t <= T; t++) {
-        cin >> n >> k;
 
-        vector<Student> students(n);
+        cin >> n >> k;
         
+        vector<Student> s(n);
+
         for(int i = 0; i < n; i++) {
-            int mid, final, assign;
             cin >> mid >> final >> assign;
-            students[i].id = i + 1;
-            students[i].total = mid * 0.35 + final * 0.45 + assign * 0.20;
+            s[i].total = mid * 0.35 + final * 0.45 + assign * 0.2;
+            s[i].id = i + 1;
         }
 
-        sort(students.begin(), students.end());
-
+        sort(s.begin(), s.end(), cmp);
+        
         int rank = 0;
         for(int i = 0; i < n; i++) {
-            if(students[i].id == k) {
-                rank = i;
-                break;
+            if(s[i].id == k) {
+                rank = i; break;
             }
         }
-        int gradeIndex = rank / (n / 10);
+        int idx = rank / (n / 10);
 
-        cout << "#" << t << " " << grade[gradeIndex] << '\n';
+        cout << "#" << t << " " << grade[idx] << '\n';
     }
-
     return 0;
 }
