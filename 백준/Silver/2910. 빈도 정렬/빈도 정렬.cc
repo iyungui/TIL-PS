@@ -1,36 +1,24 @@
-#include <bits/stdc++.h>
-
+#include<bits/stdc++.h>
 using namespace std;
 
-#define MAX_N 1000
+int n, c, num;
+vector<int> v;
+map<int, int> mp, mp2;
 
-map<int, int> mp;
-map<int, int> mp_first;
-int n, c, a[MAX_N];
-vector<pair<int, int>> v;
-
-bool cmp(pair<int, int> a, pair<int, int> b) {
-    if(a.second == b.second) return mp_first[a.first] < mp_first[b.first];
-    return a.second > b.second;
+bool cmp(int a, int b) {
+    if(mp[a] == mp[b]) return mp2[a] < mp2[b];
+    return mp[a] > mp[b];
 }
 
 int main() {
     cin >> n >> c;
     for(int i = 0; i < n; i++) {
-        cin >> a[i];
-        
-        mp[a[i]]++;
-        
-        if(mp_first[a[i]] == 0) mp_first[a[i]] = i + 1;
-    }
-    
-    for(auto it : mp) {
-        v.push_back({it.first, it.second}); // first 가 a[i] 즉, 키가 되고 second가 빈도수
+        cin >> num;
+        mp[num]++;
+        if(mp2[num] == 0) mp2[num] = i + 1;
+        v.push_back(num);
     }
     sort(v.begin(), v.end(), cmp);
-    
-    for(auto i : v) {
-        for(int j = 0; j < i.second; j++) cout << i.first << " ";
-    }
+    for(int i : v) cout << i << " ";
     return 0;
 }
