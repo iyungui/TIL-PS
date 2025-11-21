@@ -1,47 +1,47 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 
 using namespace std;
 
-int n, m, a[54][54];
-vector<pair<int, int>> chicken, _home;
-vector<vector<int>> chickenList;
+int a[54][54];
+int ret = INT_MAX, n, m;
+vector<pair<int, int>> chickens, homes;
 
-void combi(int start, vector<int> & v) {
-    if(v.size() == m) {
-        chickenList.push_back(v);
+int go(vector<int> selected) {
+    int cityDist = 0;
+    for(int i = 0; i < homes.size(); i++) {
+        int dist = INT_MAX;
+        for(int j : selected) {
+            int s = abs(homes[i].first - chickens[j].first) + abs(homes[i].second - chickens[j].second);
+            dist = min(s, dist);
+        }
+        cityDist += dist;
+    }
+    return cityDist;
+}
+
+void solve(int here, vector<int> &b) {
+    if(b.size() == m) {
+        ret = min(ret, go(b));
         return;
     }
-    for(int i = start + 1; i < chicken.size(); i++) {
-        v.push_back(i);
-        combi(i, v);
-        v.pop_back();
+    for(int i = here + 1; i < chickens.size(); i++) {
+        b.push_back(i);
+        solve(i, b);
+        b.pop_back();
     }
 }
+
 int main() {
+    ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
     cin >> n >> m;
     for(int i = 0; i < n; i++) {
         for(int j = 0; j < n; j++) {
             cin >> a[i][j];
-            if(a[i][j] == 2) chicken.push_back({i, j});
-            if(a[i][j] == 1) _home.push_back({i, j});
+            if(a[i][j] == 1) homes.push_back({i, j});
+            if(a[i][j] == 2) chickens.push_back({i, j});
         }
     }
-    
-    vector<int> v;
-    combi(-1, v);
-    int ans = INT_MAX;
-    for(vector<int> cList : chickenList) {
-        int sum = 0;
-        for(pair<int, int> home : _home) {
-            int c_dist = INT_MAX, _dist;
-            for(int c : cList) {
-                _dist = abs(home.first - chicken[c].first) + abs(home.second - chicken[c].second);
-                c_dist = min(c_dist, _dist);
-            }
-            sum += c_dist;
-        }
-        ans = min(ans, sum);
-    }
-    cout << ans << '\n';
-    return 0;
+    vector<int> b;
+    solve(-1, b);
+    cout << ret << '\n';
 }
