@@ -1,47 +1,38 @@
-#include <bits/stdc++.h>
-
+#include<bits/stdc++.h>
 using namespace std;
 
-#define MAX_NUM 64
-
+string a[66];
 int n;
-string s;
-char arr[101][101];
-
-string solution(int y, int x, int size) {
-    if(size == 1) return string(1, arr[y][x]);
-    char b = arr[y][x];   // 0인지 1인지 알기 위해서 일단 뽑고
-    string ret = "";
-    
+string go(int y, int x, int size) {
+    string start = (a[y][x] == '1') ? "1" : "0";
+    if(size == 1) return start;
+    bool flag = true;
     for(int i = y; i < y + size; i++) {
         for(int j = x; j < x + size; j++) {
-            if(b != arr[i][j]) {
-                ret += '(';
-                ret += solution(y, x, size / 2);
-                ret += solution(y, x + size / 2, size / 2);
-                ret += solution(y + size / 2, x, size / 2);
-                ret += solution(y + size / 2, x + size / 2, size / 2);
-                ret += ')';
-                return ret;
+            if(a[y][x] != a[i][j]) {
+                flag = false;
+                break;
             }
         }
+        if(!flag) break;
     }
-    
-    return string(1, arr[y][x]);
+    if(flag) return start;
+
+    string ret = "";
+    ret += "(";
+    ret += go(y, x, size / 2);
+    ret += go(y, x + (size / 2), size / 2);
+    ret += go(y + (size / 2), x, size / 2);
+    ret += go(y + (size / 2), x + (size / 2), size / 2);
+    ret += ")";
+    return ret;
 }
 
 int main() {
     cin >> n;
     for(int i = 0; i < n; i++) {
-        cin >> s;
-        
-        for(int j = 0; j < n; j++) {
-            arr[i][j] = s[j];
-        }
+        cin >> a[i];
     }
-    
-                // sx, sy, size
-    // size는 n부터
-    cout << solution(0, 0, n) << '\n';
+    cout << go(0, 0, n) << '\n';
     return 0;
 }
