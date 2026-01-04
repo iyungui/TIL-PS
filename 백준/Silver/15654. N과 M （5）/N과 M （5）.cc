@@ -7,7 +7,7 @@ int a[10], nums[10], isused[10];
 void go(int k) {
     if(k == m) {
         for(int i = 0; i < m; i++) {
-            cout << a[i] << ' ';
+            cout << nums[a[i]] << ' ';
         }
         cout << '\n';
         return;
@@ -16,7 +16,7 @@ void go(int k) {
     for(int i = 0; i < n; i++) {
         if(!isused[i]) {
             isused[i] = 1;
-            a[k] = nums[i];
+            a[k] = i;
             go(k+1);
             isused[i] = 0;
         }
