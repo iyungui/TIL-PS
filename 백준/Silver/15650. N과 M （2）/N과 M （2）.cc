@@ -2,26 +2,27 @@
 using namespace std;
 
 int n, m;
+int a[10];
 
-void combi(int idx, vector<int> &b) {
-    if(b.size() == m) {
-        for(int i : b) cout << i << " ";
+void dfs(int k) {
+    if(k == m) {
+        for(int i = 0; i < m; i++) {
+            cout << a[i] << " ";
+        }
         cout << '\n';
         return;
     }
-    for(int i = idx + 1; i <= n; i++) {
-        b.push_back(i);
-        combi(i, b);
-        b.pop_back();
+    int st = 1;
+    if(k != 0) st = a[k-1] + 1;
+    for(int i = st; i <= n; i++) {
+        a[k] = i;
+        dfs(k + 1);
     }
-    return;
 }
-
 
 int main() {
     ios_base::sync_with_stdio(false); cin.tie(0);
     cin >> n >> m;
-    vector<int> b;
-    combi(0, b);
+    dfs(0);
     return 0;
 }
