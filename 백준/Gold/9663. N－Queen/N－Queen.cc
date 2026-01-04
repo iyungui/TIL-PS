@@ -1,29 +1,30 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int n, ret;
-int isused[40], isused2[40], isused3[40];
+int n, cnt;
+int used[20], used2[40], used3[40];
 
 void go(int k) {
     if(k == n) {
-        ret++;
+        cnt++;
         return;
     }
     for(int i = 0; i < n; i++) {
-        if(isused[i] || isused2[i+k] || isused3[i-k+n-1]) continue;
-        isused[i] = 1;
-        isused2[i+k] = 1;
-        isused3[i-k+n-1] = 1;
+        if(used[i] || used2[k+i] || used3[k-i+n-1]) continue;
+        used[i] = 1;
+        used2[k+i] = 1;
+        used3[k-i+n-1] = 1;
         go(k+1);
-        isused[i] = 0;
-        isused2[i+k] = 0;
-        isused3[i-k+n-1] = 0;
+        used[i] = 0;
+        used2[k+i] = 0;
+        used3[k-i+n-1] = 0;
     }
 }
 
 int main() {
+    ios::sync_with_stdio(0); cin.tie(0);
     cin >> n;
     go(0);
-    cout << ret << '\n';
+    cout << cnt << '\n';
     return 0;
 }
