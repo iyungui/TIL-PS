@@ -2,32 +2,27 @@
 
 using namespace std;
 
-bool valid(string s) {
-    stack<char> stk;
-    for(char c : s) {
-        if(c == ']' || c == '}' || c == ')') {
-            if(stk.empty()) return false;
-            if(stk.top() == '[' && c == ']') stk.pop();
-            else if(stk.top() == '{' && c == '}') stk.pop();
-            else if(stk.top() == '(' && c == ')') stk.pop();
-            else return false;
-        }
-        else {
-            stk.push(c);
-        }
-    }
-    return stk.empty();
-}
-
 int solution(string s) {
-    int n = s.size();
     int answer = 0;
-    // 사이즈가 홀수이면 0
-    if(n % 2 == 1) return 0;
-    
+    int n = (int)s.size();
     for(int x = 0; x < n; x++) {
-        if(valid(s)) answer++;
-        s = s.substr(1) + s[0];
+        stack<char> stk;
+        bool isValid = true;
+        for(int i = 0; i < n; i++) {
+            char c = s[(i + x) % n];
+            if(c == '[' || c == '{' || c == '(') stk.push(c);
+            else {
+                if(stk.empty()) {
+                    isValid = false;
+                    break;
+                } else {
+                    if(c == ']' && stk.top() == '[') stk.pop();
+                    else if(c == '}' && stk.top() == '{') stk.pop();
+                    else if(c == ')' && stk.top() == '(') stk.pop();
+                }
+            }
+        }
+        if(isValid && stk.empty()) answer++;
     }
     return answer;
 }
