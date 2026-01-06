@@ -2,35 +2,23 @@
 
 using namespace std;
 
-int n, s, w;
+int n, s, w, cnt;
 // 각 계란의 내구도, 무게
 vector<pair<int, int>> eggs;
 int ret; 
 
-// 깨진 계란 개수 세기
-int count() {
-    int cnt = 0;
-    for(int i = 0; i < n; i++) {
-        if(eggs[i].first <= 0) cnt++;
-    }
-    return cnt;
-}
-
 void solve(int idx) {
-    // base case:: 마지막 계란까지 다 든 경우
+    // base case: 마지막 계란까지 다 든 경우
     if(idx == n) {
-        ret = max(ret, count());
+        ret = max(ret, cnt);
         return;
     }
 
-    // 1.현재 들고 있는 계란이 이미 깨져있는 경우는 다음 계란으로 패스
-    if(eggs[idx].first <= 0) {
+    // 1.현재 들고 있는 계란이 이미 깨져있는 경우 or 다른 모든 계란 깨져있으면 패스
+    if(eggs[idx].first <= 0 || cnt == n - 1) {
         solve(idx + 1);
         return;
     }
-
-    // 계란을 하나라도 쳤는지 확인하는 flag
-    bool hit = false;
 
     // 2.다른 계란들을 하나씩 쳐본다.
     for(int i = 0; i < n; i++) {
@@ -40,18 +28,18 @@ void solve(int idx) {
         // action
         eggs[i].first -= eggs[idx].second;
         eggs[idx].first -= eggs[i].second;
-        hit = true;
-
+        if(eggs[i].first <= 0) cnt++;
+        if(eggs[idx].first <= 0) cnt++;
+        
         // recurse: 다음 계란으로 이동
         solve(idx + 1);
 
         // backtrack(reset)
+        if(eggs[i].first <= 0) cnt--;
+        if(eggs[idx].first <= 0) cnt--;
         eggs[i].first += eggs[idx].second;
         eggs[idx].first += eggs[i].second;
     }
-
-    // 3. 하나도 못 친경우(나 빼고 다 깨져있는 경우는 그냥 넘어가기)
-    if(!hit) solve(idx+1);
 }
 
 int main() {
