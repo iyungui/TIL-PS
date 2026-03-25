@@ -9,22 +9,10 @@ int main() {
     cin >> n;
     for(int i = 0; i < n; i++) cin >> a[i];
     sort(a, a + n, greater<int>());
-    int group_count = (n + 2) / 3;
-
     long long ret = 0;
-    for(int i = 0; i < group_count; i++) {
-        if(i == group_count - 1) {
-            int j = 0;
-            while(i*3+j < n) {
-                if(j == 2) break;
-                ret += a[i*3+j];
-                j++;
-            }
-            continue;
-        }
-        for(int j = 0; j < 2; j++) {
-            ret += a[i * 3 + j];
-        }
+    for(int i = 0; i < n; i++) {
+        if((i+1) % 3 == 0) continue;
+        ret += a[i];
     }
     cout << ret << '\n';
     return 0;
