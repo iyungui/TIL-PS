@@ -1,75 +1,56 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-int n, k, words[51], ret;
-string s;
+string str = "antic";
+int learned;
+int words[55];
+int max_cnt;
+int n, k;
 
-// 현재 배운 글자들로 읽을 수 있는 단어 수 반환
-int count_readable(int mask) {
-    int cnt = 0;
-    for(int word : words) {
-        if(word && (word & mask) == word) cnt++;
-    }
-    return cnt;
-}
+void dfs(int idx, int cnt) {
+    if(cnt == k - 5) {
+        int t = 0;
+        for(int i = 0; i < n; i++) {
+            if((words[i] & learned) == words[i]) t++;
+        }
+        if(t == n) {
+            cout << n << '\n';
+            exit(0);
+        }
 
-// index: 현재 알파벳, selected: 현재까지 선택한 알파벳 수
-// base_mask: antic + 추가로 선택한 알파벳들의 비트마스크
-void go(int index, int selected, int need_to_select, int base_mask) {
-    // k-5개를 다 선택했으면
-    if(selected == need_to_select) {
-        ret = max(ret, count_readable(base_mask));
+        max_cnt = max(max_cnt, t);
         return;
     }
-    
-    // 남은 알파벳 수가 필요한 수보다 적으면 불가능
-    if(26 - index < need_to_select - selected) return;
-    
-    // 현재 알파벳이 antic이면 건너뛰기
-    if(index == 'a'-'a' || index == 'n'-'a' || index == 't'-'a' ||
-       index == 'i'-'a' || index == 'c'-'a') {
-        go(index + 1, selected, need_to_select, base_mask);
-        return;
+
+    for(int i = idx; i < 26; i++) {
+        if(learned & (1 << i)) continue;
+
+        learned |= (1 << i);
+        dfs(i+1, cnt+1);
+        learned &= ~(1 << i);
     }
-    
-    // 1. 현재 알파벳 선택
-    go(index + 1, selected + 1, need_to_select, base_mask | (1 << index));
-    // 2. 현재 알파벳 선택하지 않음
-    go(index + 1, selected, need_to_select, base_mask);
 }
 
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    
+    ios::sync_with_stdio(0); cin.tie(0);
     cin >> n >> k;
-    
-    // k가 5보다 작으면 antic도 못 배우므로 0 출력
+    for(int i = 0; i < n; i++) {
+        string s; cin >> s;
+        for(char c : s) words[i] |= (1 << (c - 'a'));
+    }
     if(k < 5) {
         cout << 0 << '\n';
         return 0;
     }
-    
-    // 단어들을 비트마스크로 변환
-    for(int i = 0; i < n; i++) {
-        cin >> s;
-        for(char c : s) {
-            words[i] |= (1 << (c - 'a'));
-        }
+    if(k == 26) {
+        cout << n << '\n';
+        return 0;
     }
-    
-    // 기본 글자(antic) 마스크 생성
-    int base_mask = 0;
-    base_mask |= (1 << ('a' - 'a'));
-    base_mask |= (1 << ('n' - 'a'));
-    base_mask |= (1 << ('t' - 'a'));
-    base_mask |= (1 << ('i' - 'a'));
-    base_mask |= (1 << ('c' - 'a'));
-    
-    // k-5개 알파벳을 추가로 선택하는 모든 경우 탐색
-    go(0, 0, k-5, base_mask);
-    
-    cout << ret << '\n';
-    
+
+    for(char c : str) learned |= (1 << (c - 'a'));
+
+    dfs(0, 0);
+
+    cout << max_cnt << '\n';
     return 0;
 }
