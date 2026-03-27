@@ -1,7 +1,41 @@
-SELECT 
+/* 바로 2022-10-16 필터링을 적용하게 되면, 안되는 이유
+SELECT
     CAR_ID,
     CASE
-        WHEN MAX('2022-10-16' BETWEEN START_DATE AND END_DATE) = 1 THEN '대여중'
+        WHEN '2022-10-16' BETWEEN START_DATE AND END_DATE 
+        THEN '대여중'
+        ELSE '대여 가능'
+    END AS AVAILABILITY
+FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY
+GROUP BY CAR_ID
+ORDER BY CAR_ID DESC;
+
+=>
+"GROUP BY로 여러 행을 하나로 묶을 때,
+그 행들의 개별 컬럼 값(START_DATE, END_DATE)을 직접 참조하면 '어떤 행의 값을 쓸지' 불명확하므로,
+MAX/MIN/COUNT 같은 집계 함수로 명확한 규칙을 제시해야 한다!"
+*/
+
+# SELECT
+#     CAR_ID,
+#     CASE
+#         WHEN MAX('2022-10-16' BETWEEN START_DATE AND END_DATE) = 1
+#         THEN '대여중'
+#         ELSE '대여 가능'
+#     END AS AVAILABILITY
+# FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY
+# GROUP BY CAR_ID
+# ORDER BY CAR_ID DESC;
+
+SELECT
+    CAR_ID,
+    CASE
+        WHEN CAR_ID IN (
+            SELECT CAR_ID
+            FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY
+            WHERE '2022-10-16' BETWEEN START_DATE AND END_DATE
+        )
+        THEN '대여중'
         ELSE '대여 가능'
     END AS AVAILABILITY
 FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY
