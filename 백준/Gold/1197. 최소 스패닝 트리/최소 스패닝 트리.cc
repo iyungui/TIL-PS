@@ -1,7 +1,13 @@
 #include<bits/stdc++.h>
-using namespace std;
 
-vector<int> p(10005, -1);
+using namespace std;
+/*
+1.간선을 크기 오름차순 정렬 하고 제일 낮은 비용 간선 선택
+2. 현재선택한 간선이 u,v연결 간선이라고할때. 만약 u, v 같은 그룹이면. continue. 다른 그룹이면 같은그룹으로 만들고. 현재 선택한 간선을 mst에 추가
+3. mst에 v-1개 간선 추가라면 종료. 그렇지않다면 비용이 작은간선 선택후 2번과정반복
+*/
+
+vector<int> p(10004, -1);
 
 int find(int x) {
     if(p[x] < 0) return x;
@@ -11,37 +17,32 @@ int find(int x) {
 bool is_diff_group(int u, int v) {
     u = find(u);
     v = find(v);
-    if(u == v) return 0;    // union을 수행하지 못한 경우(이미 같은 그룹인 경우)
-    if(p[u] == p[v]) p[u]--;   // 랭크가 같은 경우 랭크를 1 증가시킴
-    if(p[u] < p[v]) p[v] = u;   // v를 u의 자식으로 만든다
-    else p[u] = v; // u를 v의 자식으로 만든다 (둘 중에 높이가 더 작은 쪽의 자식으로)
-    return 1;   // 다른 그룹인 경우, union을 수행한경우
+    if(u == v) return 0;
+    if(p[u] == p[v]) p[u]--;
+    if(p[u] < p[v]) p[v] = u;
+    else p[u] = v;
+    return 1;
 }
-
 int v, e;
-tuple<int,int,int> edge[100005];
+tuple<int, int, int> edge[100005];
 
 int main() {
     ios::sync_with_stdio(0); cin.tie(0);
     cin >> v >> e;
     for(int i = 0; i < e; i++) {
-        int a, b, cost;
-        cin >> a >> b >> cost;
+        int a, b, cost; cin >> a >> b >> cost;
         edge[i] = {cost, a, b};
     }
     sort(edge, edge + e);
-
-    int cnt = 0;
-    int ans = 0;    // 다른 그룹이라면, ans 에 cost를 더할 것임. 
-    
+    int cnt = 0, ans = 0;
     for(int i = 0; i < e; i++) {
         int a, b, cost;
         tie(cost, a, b) = edge[i];
         if(!is_diff_group(a, b)) continue;
         ans += cost;
         cnt++;
-        if(cnt == v-1) break;
+        if(cnt == v - 1) break;
     }
-    cout << ans << '\n';
+    cout << ans;
     return 0;
 }
