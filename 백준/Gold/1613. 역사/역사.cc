@@ -13,8 +13,8 @@ int main() {
     }
     for(int k = 1; k <= n; k++) {
         for(int i = 1; i <= n; i++) {
+            if(d[i][k] == 0) continue;
             for(int j = 1; j <= n; j++) {
-                if(d[i][j] != 0) continue;
                 if(d[i][k] == -1 && d[k][j] == -1) d[i][j] = -1;
                 if(d[i][k] == 1 && d[k][j] == 1) d[i][j] = 1;
             }
