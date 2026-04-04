@@ -1,35 +1,33 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int dist[104][104];
+int n, m;
+int w[104][104];
 int nxt[104][104];
+const int INF = 0x3f3f3f3f;
 int main() {
     ios::sync_with_stdio(0); cin.tie(0);
-    int n, m; cin >> n >> m;
-    
-    // 자기 자신은 0, 나머지는 INF
+    cin >> n >> m;
+    // 자기자신으로 가는 비용 0
+    // 나머지는 INF 로 초기화
     for(int i = 1; i <= n; i++) {
         for(int j = 1; j <= n; j++) {
-            if(i == j) dist[i][j] = 0;
-            else dist[i][j] = 0x3f3f3f3f;
+            if(i == j) w[i][j] = 0;
+            else w[i][j] = INF;
         }
     }
-
-    // 버스 정보 입력받기
     for(int i = 0; i < m; i++) {
-        int a, b, c; cin >> a >> b >> c;
-        // 여러 개 노선 중 최단 거리만 저장
-        dist[a][b] = min(dist[a][b], c);
-        nxt[a][b] = b;
+        int a, b, c;
+        cin >> a >> b >> c;
+        w[a][b] = min(w[a][b], c);
+        nxt[a][b] = b;  // a에서 b로 가려면 b를 거쳐야 한다(a에서 바로 b로 가야한다)
     }
-    
-    // O(v^3)
-    // k -> i 순서로
+
     for(int k = 1; k <= n; k++) {
         for(int i = 1; i <= n; i++) {
             for(int j = 1; j <= n; j++) {
-                if(dist[i][j] > dist[i][k] + dist[k][j]) {
-                    dist[i][j] = dist[i][k] + dist[k][j];
+                if(w[i][j] > w[i][k] + w[k][j]) {
+                    w[i][j] = w[i][k] + w[k][j];
                     nxt[i][j] = nxt[i][k];
                 }
             }
@@ -38,15 +36,16 @@ int main() {
 
     for(int i = 1; i <= n; i++) {
         for(int j = 1; j <= n; j++) {
-            if(dist[i][j] == 0x3f3f3f3f) cout << 0 << " ";
-            else cout << dist[i][j] << " ";
+            if(w[i][j] == INF) cout << 0 << " ";
+            else cout << w[i][j] << " ";
         }
         cout << '\n';
     }
 
     for(int i = 1; i <= n; i++) {
         for(int j = 1; j <= n; j++) {
-            if(dist[i][j] == 0 || dist[i][j] == 0x3f3f3f3f) {
+            // 자기자신으로 가는 경우 또는 길이 없는 경우에는 0출력
+            if(w[i][j] == 0 || w[i][j] == INF) {
                 cout << "0\n";
                 continue;
             }
@@ -62,6 +61,8 @@ int main() {
             for(auto x : path) cout << x << ' ';
             cout << '\n';
         }
+
     }
+
     return 0;
 }
