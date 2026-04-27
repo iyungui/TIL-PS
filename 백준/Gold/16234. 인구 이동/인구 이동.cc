@@ -1,76 +1,69 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-int n, l, r;
-int a[54][54];
-int visited[54][54];
-const int dy[] = {-1, 0, 1, 0};
-const int dx[] = {0, 1, 0, -1};
-vector<pair<int, int>> union_pos;
+int n, L, R;
+int day;
+int A[104][104];
 
-bool InRange(int y, int x) {
-    return y >= 0 && y < n && x >= 0 && x < n;
-}
+int dy[] = {-1, 0, 1, 0};
+int dx[] = {0, 1, 0, -1};
 
-void dfs(int y, int x, vector<pair<int, int>>& union_pos) {
-    visited[y][x] = 1;
-    union_pos.push_back({y, x});
-    
-    for(int i = 0; i < 4; i++) {
-        int ny = y + dy[i];
-        int nx = x + dx[i];
-        
-        if(InRange(ny, nx) && !visited[ny][nx]) {
-            int diff = abs(a[y][x] - a[ny][nx]);
-            if(diff >= l && diff <= r) {
-                dfs(ny, nx, union_pos);
-            }
-        }
-    }
-}
-
-bool move() {
-    memset(visited, 0, sizeof(visited));
-    bool moved = false;
-    
+int main() {
+    ios::sync_with_stdio(0); cin.tie(0);
+    cin >> n >> L >> R;
     for(int i = 0; i < n; i++) {
         for(int j = 0; j < n; j++) {
-            if(!visited[i][j]) {
-                union_pos.clear();
-                dfs(i, j, union_pos);
+            cin >> A[i][j];
+        }
+    }
+
+    while(1) {
+        vector<vector<bool>> visited(n+1, vector<bool>(n+1, 0));
+        bool move = false;
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < n; j++) {
+                if(visited[i][j]) continue; // 이미 방문했다면 스킵
                 
-                if(union_pos.size() > 1) {
-                    moved = true;
-                    int sum = 0;
-                    for(auto& p : union_pos) {
-                        sum += a[p.first][p.second];
+                queue<pair<int, int>> q;
+                visited[i][j] = 1;
+                int num = A[i][j];  // 연합의 인구수
+                vector<pair<int, int>> v;
+                v.push_back({i, j});
+                q.push({i, j});
+                
+                while(q.size()) {
+                    int y, x;
+                    tie(y, x) = q.front(); q.pop();
+                    for(int d = 0; d < 4; d++) {
+                        int ny = y + dy[d];
+                        int nx = x + dx[d];
+                        if(ny < 0 || ny >= n || nx < 0 || nx >= n) continue;
+                        if(visited[ny][nx]) continue;
+                        int diff = abs(A[y][x] - A[ny][nx]);
+                        if(diff >= L && diff <= R) {
+                            num += A[ny][nx];
+                            v.push_back({ny, nx});
+                            visited[ny][nx] = 1;
+                            q.push({ny, nx});
+                        }
                     }
-                    
-                    int avg = sum / union_pos.size();
-                    for(auto& p : union_pos) {
-                        a[p.first][p.second] = avg;
+                }
+                // 인구이동이 일어나는 경우
+                if(v.size() >= 2) {
+                    move = true;
+                    int tmp = num / (int)v.size();
+                    for(auto& p : v) {
+                        A[p.first][p.second] = tmp;
                     }
                 }
             }
         }
-    }
-    return moved;
-}
 
-int main() {
-    cin >> n >> l >> r;
-    
-    for(int i = 0; i < n; i++) {
-        for(int j = 0; j < n; j++) {
-            cin >> a[i][j];
-        }
+        // 인구 이동이 일어나지 않음
+        if(!move) break;
+        day++;
     }
-    
-    int days = 0;
-    while(move()) {
-        days++;
-    }
-    
-    cout << days << '\n';
-    return 0;
+
+    cout << day << '\n';
+    return 0;   
 }
