@@ -3,6 +3,12 @@
 using namespace std;
 
 vector<int> solution(vector<int> arr) {
-    arr.erase(unique(arr.begin(), arr.end()), arr.end());
-    return arr;
+    vector<int> answer;
+    
+    for(int a : arr) {
+        if(answer.size() && answer.back() == a) continue;
+        answer.push_back(a);
+    }
+    
+    return answer;
 }
