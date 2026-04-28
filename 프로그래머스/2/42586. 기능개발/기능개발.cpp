@@ -3,27 +3,24 @@
 using namespace std;
 
 vector<int> solution(vector<int> progresses, vector<int> speeds) {
-    vector<int> answer;
-    vector<int> days;
-    for(int i = 0; i < progresses.size(); i++) {
+    vector<int> days, ret;
+    int n = speeds.size();
+    for(int i = 0; i < n; i++) {
         int remain = 100 - progresses[i];
-        int day = (remain + speeds[i] - 1) / speeds[i];
-        days.push_back(day);
+        int d = (remain + speeds[i] - 1) / speeds[i];
+        days.push_back(d);
     }
     
-    int i = 0;
-    
-    while (i < days.size()) {
-        int count = 1;
-        int deploy = days[i];
-        
-        while(i + count < days.size() && days[i + count] <= deploy) {
-            count++;
+    int mn = days[0];
+    int cnt = 1;
+    for(int i = 1; i < n; i++) {
+        if(mn >= days[i]) cnt++;
+        else {
+            ret.push_back(cnt);
+            cnt = 1;
+            mn = days[i];
         }
-        
-        answer.push_back(count);
-        i += count;
     }
-    
-    return answer;
+    ret.push_back(cnt);
+    return ret;
 }
