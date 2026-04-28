@@ -9,7 +9,7 @@ int day;
 const int dy[] = {-1,0,1,0};
 const int dx[] = {0,1,0,-1};
 
-pair< vector<pair<int, int>>, int > bfs(int sy, int sx) {
+bool bfs(int sy, int sx) {
     visited[sy][sx] = 1;
 
     int num = a[sy][sx];  // 연합의 인구수
@@ -41,7 +41,15 @@ pair< vector<pair<int, int>>, int > bfs(int sy, int sx) {
         }
     }
 
-    return {group, num};
+    // 인구 이동이 일어나는 경우
+    if((int)group.size() >= 2) {
+        int tmp = num / (int)group.size();
+        for(auto& p : group) {
+            a[p.first][p.second] = tmp;
+        }
+        return 1;
+    }
+    return 0;
 }
 
 int main() {
@@ -56,29 +64,18 @@ int main() {
 
     while(1) {
         memset(visited, 0, sizeof(visited)); // 인구 이동 시작 전 방문배열 초기화
-        bool move = 0; // 인구이동이 한번이라도 발생했는지 여부
+        bool moved = false; // 인구이동이 한번이라도 발생했는지 여부
         
         for(int i = 0; i < N; i++) {
             for(int j = 0; j < N; j++) {
                 // 이미 방문한 나라인 경우 스킵
                 if(visited[i][j]) continue;
-
-                // [연합 그룹, 연합의 인구수]
-                auto [group, num] = bfs(i, j);
-
-                // 인구 이동이 일어나는 경우
-                if((int)group.size() >= 2) {
-                    move = true;
-                    int tmp = num / (int)group.size();
-                    for(auto& p : group) {
-                        a[p.first][p.second] = tmp;
-                    }
-                }
+                if(bfs(i, j)) moved = true;
             }
         }
 
         // 인구이동이 일어나지 않는 경우
-        if(!move) break;
+        if(!moved) break;
         day++;
     }
 
