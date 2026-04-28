@@ -1,69 +1,88 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int n, L, R;
-int day;
-int A[104][104];
+int N, L, R;
+int a[54][54];
 
-int dy[] = {-1, 0, 1, 0};
-int dx[] = {0, 1, 0, -1};
+bool visited[54][54];
+int day;
+const int dy[] = {-1,0,1,0};
+const int dx[] = {0,1,0,-1};
+
+pair< vector<pair<int, int>>, int > bfs(int sy, int sx) {
+    visited[sy][sx] = 1;
+
+    int num = a[sy][sx];  // 연합의 인구수
+    queue<pair<int, int>> q;    // bfs 탐색을 위한 큐
+    vector<pair<int, int>> group;   // 연합 그룹
+
+    q.push({sy, sx});
+    group.push_back({sy, sx});
+
+    while(!q.empty()) {
+        int y, x;
+
+        tie(y, x) = q.front(); q.pop();
+        for(int i = 0; i < 4; i++) {
+            int ny = y + dy[i];
+            int nx = x + dx[i];
+
+            // 배열 범위 벗어나거나 이미 방문한 경우는 제외
+            if(ny < 0 || ny >= N || nx < 0 || nx >= N || visited[ny][nx]) continue;
+
+            // 연합 조건 체크
+            int diff = abs(a[y][x] - a[ny][nx]);
+            if(diff >= L && diff <= R) {
+                num += a[ny][nx];
+                group.push_back({ny, nx});
+                visited[ny][nx] = 1;    // 실제로 연합을 이루는 경우에만 방문처리
+                q.push({ny, nx});
+            }
+        }
+    }
+
+    return {group, num};
+}
 
 int main() {
     ios::sync_with_stdio(0); cin.tie(0);
-    cin >> n >> L >> R;
-    for(int i = 0; i < n; i++) {
-        for(int j = 0; j < n; j++) {
-            cin >> A[i][j];
+    cin >> N >> L >> R;
+
+    for(int i = 0; i < N; i++) {
+        for(int j = 0; j < N; j++) {
+            cin >> a[i][j];
         }
     }
 
     while(1) {
-        vector<vector<bool>> visited(n+1, vector<bool>(n+1, 0));
-        bool move = false;
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < n; j++) {
-                if(visited[i][j]) continue; // 이미 방문했다면 스킵
-                
-                queue<pair<int, int>> q;
-                visited[i][j] = 1;
-                int num = A[i][j];  // 연합의 인구수
-                vector<pair<int, int>> v;
-                v.push_back({i, j});
-                q.push({i, j});
-                
-                while(q.size()) {
-                    int y, x;
-                    tie(y, x) = q.front(); q.pop();
-                    for(int d = 0; d < 4; d++) {
-                        int ny = y + dy[d];
-                        int nx = x + dx[d];
-                        if(ny < 0 || ny >= n || nx < 0 || nx >= n) continue;
-                        if(visited[ny][nx]) continue;
-                        int diff = abs(A[y][x] - A[ny][nx]);
-                        if(diff >= L && diff <= R) {
-                            num += A[ny][nx];
-                            v.push_back({ny, nx});
-                            visited[ny][nx] = 1;
-                            q.push({ny, nx});
-                        }
-                    }
-                }
-                // 인구이동이 일어나는 경우
-                if(v.size() >= 2) {
+        memset(visited, 0, sizeof(visited)); // 인구 이동 시작 전 방문배열 초기화
+        bool move = 0; // 인구이동이 한번이라도 발생했는지 여부
+        
+        for(int i = 0; i < N; i++) {
+            for(int j = 0; j < N; j++) {
+                // 이미 방문한 나라인 경우 스킵
+                if(visited[i][j]) continue;
+
+                // [연합 그룹, 연합의 인구수]
+                auto [group, num] = bfs(i, j);
+
+                // 인구 이동이 일어나는 경우
+                if((int)group.size() >= 2) {
                     move = true;
-                    int tmp = num / (int)v.size();
-                    for(auto& p : v) {
-                        A[p.first][p.second] = tmp;
+                    int tmp = num / (int)group.size();
+                    for(auto& p : group) {
+                        a[p.first][p.second] = tmp;
                     }
                 }
             }
         }
 
-        // 인구 이동이 일어나지 않음
+        // 인구이동이 일어나지 않는 경우
         if(!move) break;
         day++;
     }
 
     cout << day << '\n';
-    return 0;   
+
+    return 0;
 }
