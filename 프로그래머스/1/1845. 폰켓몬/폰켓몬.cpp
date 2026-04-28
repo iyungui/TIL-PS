@@ -2,9 +2,6 @@
 using namespace std;
 
 int solution(vector<int> nums) {
-    int answer = (int)nums.size() / 2;
-    sort(nums.begin(), nums.end());
-    
-    nums.erase(unique(nums.begin(), nums.end()), nums.end());
-    return min(answer, (int)nums.size());
+    unordered_set<int> st(nums.begin(), nums.end());
+    return min((int)st.size(), (int)nums.size() / 2);
 }
