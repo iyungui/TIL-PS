@@ -1,35 +1,38 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
 struct Job {
-    int num, req, t;
-    
-    bool operator>(const Job& other) const {
-        if(t != other.t) return t > other.t;
+    int idx, req, time;
+    bool operator<(const Job& other) const {
+        // 소요시간 짧은 순
+        if(time != other.time) return time > other.time;
+        // 요청시간 빠른 순
         if(req != other.req) return req > other.req;
-        return num > other.num;
+        // 작업번호 작은 순
+        return idx > other.idx;
     }
 };
 
 int solution(vector<vector<int>> jobs) {
-    sort(jobs.begin(), jobs.end());
-    priority_queue<Job, vector<Job>, greater<Job>> pq;
-    int idx = 0, time = 0, sum = 0;
+    int answer = 0;
+    int cur_time = 0;
+    int i = 0;
+    int n = jobs.size();
     
-    while (idx < jobs.size() || pq.size()) {
-        while (idx < jobs.size() && time >= jobs[idx][0]) {
-            pq.push({idx, jobs[idx][0], jobs[idx][1]});
-            idx++;
+    priority_queue<Job, vector<Job>> pq;
+    sort(jobs.begin(), jobs.end());
+    
+    while(i < n || pq.size()) {
+        while(i < n && cur_time >= jobs[i][0]) {
+            pq.push({i, jobs[i][0], jobs[i][1]});
+            i++;
         }
-        
-        if (idx < jobs.size() && pq.empty()) time = jobs[idx][0];
-        else {
+        if(pq.size()) {
             Job cur = pq.top(); pq.pop();
-            time += cur.t;
-            
-            sum += (time - cur.req);
+            cur_time += cur.time;
+            answer += (cur_time - cur.req);
         }
+        else cur_time = jobs[i][0];
     }
-    return sum / jobs.size();
+    return answer / n;
 }
