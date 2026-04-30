@@ -3,25 +3,22 @@
 using namespace std;
 
 int solution(int n, vector<int> lost, vector<int> reserve) {
-    vector<int> students(n + 1, 1);
-    for(int l: lost) students[l]--;
-    for(int r: reserve) students[r]++;
-    
+    int answer = 0;
+    vector<int> st(n+1, 1);
+    for(int l : lost) st[l]--;
+    for(int r : reserve) st[r]++;
     for(int i = 1; i <= n; i++) {
-        if (students[i] <= 0) {
-            if (i > 1 && students[i - 1] > 1) {
-                students[i - 1]--;
-                students[i]++;
+        if(st[i] == 0) {
+            if(st[i-1] == 2) {
+                st[i-1]--; st[i]++;
             }
-            else if (i < n && students[i + 1] > 1) {
-                students[i + 1]--;
-                students[i]++;
+            else if(st[i+1] == 2) {
+                st[i+1]--; st[i]++;
             }
         }
     }
-    int cnt = 0;
     for(int i = 1; i <= n; i++) {
-        if(students[i] > 0) cnt++;
+        if(st[i] >= 1) answer++;
     }
-    return cnt;
+    return answer;
 }

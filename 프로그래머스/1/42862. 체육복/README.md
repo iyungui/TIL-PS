@@ -1,16 +1,14 @@
 # [level 1] 체육복 - 42862 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42862?language=swift) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42862) 
 
 ### 성능 요약
 
-메모리: 16.6 MB, 시간: 0.08 ms
+메모리: 4.15 MB, 시간: 0.01 ms
 
 ### 구분
 
-코딩테스트 연습
- > 탐욕법（Greedy）
-
+코딩테스트 연습 > 탐욕법（Greedy）
 
 ### 채점결과
 
@@ -18,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 10월 16일 13:54:28
+2026년 04월 30일 14:57:39
 
 ### 문제 설명
 
