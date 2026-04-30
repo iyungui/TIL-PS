@@ -3,59 +3,50 @@
 using namespace std;
 
 int solution(vector<vector<int>> points, vector<vector<int>> routes) {
+    const int x = routes.size();    // 로봇의 개수
+    const int m = routes[0].size(); // 로봇 한 대가 방문할 포인트 수
+    
+    /*
+    -각 로봇의 매 이동을 (시간 t, 좌표r,c)의 정수 하나로 인코딩 하고 events벡터에 푸시
+    // 인코딩 공식: t * 10201 + r * 101 + c
+    //   - r, c는 최대 100이므로 101을 곱해 자릿수를 분리
+    //   - 101 * 101 = 10201로 t 자릿수 분리
+    //   - 역으로 디코딩: t = key/10201, r = (key%10201)/101, c = key%101
+    */
+    vector<int> events;
+    events.reserve(x * 20000);
+    for(int i = 0; i < x; i++) {    // 각 로봇 순회
+        // 0초에서 출발
+        int t = 0;
+        int r = points[routes[i][0]-1][0];
+        int c = points[routes[i][0]-1][1];
+        
+        // 포인트 각 구간 순회
+        for(int j = 0; j < m - 1; j++) {
+            int er = points[routes[i][j+1]-1][0];
+            int ec = points[routes[i][j+1]-1][1];
+            
+            // 첫번째 구간의 출발지점만 따로 기록
+            if(j==0) events.push_back(t*10201+r*101+c);
+            
+            while(r != er) {
+                r += (er > r) ? 1 : -1;
+                events.push_back(++t * 10201 + r * 101 + c);
+            }
+            while(c != ec) {
+                c += (ec > c) ? 1 : -1;
+                events.push_back(++t * 10201 + r * 101 + c);
+            }
+        }
+    }
+    
+    sort(events.begin(), events.end());
     int answer = 0;
-    int x = routes.size();  // 로봇의 수
-    int m = routes[0].size();   // 하나의 로봇이 거쳐가야 할 포인트 개수
-    int n = points.size();  // points 개수
-    
-    // [시간대][로봇좌표] = 로봇개수
-    unordered_map<int, int> log[20004];
-    int mx = 0;
-    
-    for(int i = 0; i < x; i++) {
-        // 시작시간 초기화
-        int cur = 0;
-        // i번째 로봇이 가야할 경로 탐색
-        for(int j = 0; j < m-1; j++) {
-            // 시작 포인트 a, 도착 포인트 b 추출
-            int a = routes[i][j] - 1;
-            int b = routes[i][j+1] - 1;
-            // 각 포인트의 y,x 좌표 추출
-            int sy = points[a][0], sx = points[a][1];
-            int ey = points[b][0], ex = points[b][1];
-            
-            // 시작시간(0초), 시작지점(sy,sx)에 1카운트
-            if(j == 0) log[cur][sy*100+sx]++;
-            
-            // r(y)부터 이동
-            while(sy != ey) {
-                // up
-                if(sy > ey) sy--;
-                // down
-                else sy++;
-                // 기록
-                log[++cur][sy*100+sx]++;
-            }
-            
-            // 그리고 c(x) 이동
-            while(sx != ex) {
-                // right -> left
-                if(sx > ex) sx--;
-                // left -> right
-                else sx++;
-                // 기록
-                log[++cur][sy*100+sx]++;
-            }
-        }
-        mx = max(mx, cur);
+    for(int i = 0, n = events.size(); i < n; ) {
+        int j = i;
+        while(j < n && events[j] == events[i]) j++;
+        if(j-i >= 2) answer++;
+        i = j;
     }
-    
-    // log 순회하면서, [특정시간][특정좌표]에 로봇개수가 2이상인 경우의 수 모두 구하기
-    for(int t = 0; t <= mx; t++) {
-        for(auto const& [p, cnt] : log[t]) {
-            if(cnt >= 2) answer++;
-        }
-    }
-    
     return answer;
 }
