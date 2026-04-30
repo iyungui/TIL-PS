@@ -3,20 +3,18 @@
 using namespace std;
 
 string solution(string number, int k) {
-    string stk = "";
-    int remain = k;
-    
-    for(const char& digit: number) {
-        while(stk.size() && remain > 0 && stk.back() < digit) {
-            stk.pop_back();
-            remain--;
+    string ans = "";
+    int cnt = 0;
+    for(char num : number) {
+        while(cnt < k && ans.size() && ans.back() < num) {
+            cnt++;
+            ans.pop_back();
         }
-        stk.push_back(digit);
+        ans.push_back(num);
     }
-    
-    while(remain > 0) {
-        stk.pop_back();
-        remain--;
+    while(cnt < k && ans.size()) {
+        ans.pop_back();
+        cnt++;
     }
-    return stk;
+    return ans;
 }
