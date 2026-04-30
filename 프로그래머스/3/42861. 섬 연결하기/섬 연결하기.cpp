@@ -1,10 +1,14 @@
 #include <bits/stdc++.h>
+
 using namespace std;
+
 int p[104];
+
 int find(int x) {
     if(p[x] < 0) return x;
     return p[x] = find(p[x]);
 }
+
 bool is_diff_group(int u, int v) {
     u = find(u); v = find(v);
     if(u == v) return 0;
@@ -13,10 +17,10 @@ bool is_diff_group(int u, int v) {
     else p[u] = v;
     return 1;
 }
+
 int solution(int n, vector<vector<int>> costs) {
-    int answer = 0;
     memset(p, -1, sizeof(p));
-    
+    int answer = 0;
     vector<tuple<int, int, int>> edge;
     int e = costs.size();
     for(int i = 0; i < e; i++) {
