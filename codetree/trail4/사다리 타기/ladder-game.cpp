@@ -1,57 +1,54 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-int N, M;
+int n, m;
 vector<pair<int, int>> ladder;
-vector<int> selected;
 vector<int> original;
+vector<int> selected, all_selected;
 int ret = 20;
+vector<int> get_result(vector<int>& active_idx) {
+    vector<int> res(n);
 
-vector<int> get_result(const vector<int>& active_idx) {
-    vector<int> res(N + 1);
-    for(int i = 0; i < N; i++) res[i] = i;  // 처음에는 세로줄 번호로 시작
-
-    vector<pair<int, int>> cur_ladders;
-    for(int idx : active_idx) cur_ladders.push_back(ladder[idx]);
-
-    for(auto& l : cur_ladders) {
-        int a = l.second;
-        swap(res[a], res[a + 1]);
-    }
+    for(int i = 0; i < n; i++) res[i] = i;
     
+    for(int idx : active_idx) {
+        int a = ladder[idx].second;
+        if(a < n - 1) swap(res[a], res[a + 1]);
+    }
+
     return res;
 }
 
 void go(int idx, int cnt) {
-    if(idx == M) {
+    if(idx == m) {
         if(get_result(selected) == original) {
             ret = min(ret, cnt);
         }
         return;
     }
-
+    // idx번째 가로줄을 선택하는 경우
     selected.push_back(idx);
     go(idx + 1, cnt + 1);
     selected.pop_back();
+
+    // 선택하지 않는 경우
     go(idx + 1, cnt);
 }
 
+
 int main() {
-    ios::sync_with_stdio(0); cin.tie(0);
-    cin >> N >> M;
-    for(int i = 0; i < M; i++) {
+    cin >> n >> m;
+    for(int i = 0; i < m; i++) {
         int a, b; cin >> a >> b;
-        ladder.push_back({b, a - 1});
+        ladder.push_back({b, a-1}); // 가로줄(위에서 부터 아래 순으로) 기준 정렬
     }
     sort(ladder.begin(), ladder.end());
-
-    // 모든 가로줄을 선택한 경우, 결과 배열 만들기
-    vector<int> all_selected;
-    for(int i = 0; i < M; i++) all_selected.push_back(i);
+    
+    // m개의 모든 가로줄을 사용한 결과 구해놓기
+    for(int i = 0; i < m; i++) all_selected.push_back(i);
     original = get_result(all_selected);
 
     go(0, 0);
-
     cout << ret << '\n';
     return 0;
 }
