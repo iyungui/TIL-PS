@@ -14,6 +14,7 @@ vector<pair<int, int>> bomb_shapes[3] = {
 };
 
 int cnt_area() {
+    // visited 또는 board2를 따로 만들어서 색칠하기. (원본 배열을 건드리지 말고)
     memset(visited, 0, sizeof(visited));
     int cnt = 0;
     
