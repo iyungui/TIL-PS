@@ -23,7 +23,7 @@ int solve() {
 }
 
 void go(int idx) {
-    if(idx == 6) {  // 모든 알파벳 경우를 다 본 경우(6의 4승)
+    if(idx == 6) {  // 모든 알파벳 경우를 다 본 경우(4의 6승)
         ret = max(solve(), ret);
         return;
     }
