@@ -2,42 +2,41 @@
 using namespace std;
 
 int ret, N;
+int a[11];
 
-bool chk(vector<int>& v) {
-    int prev = v[0];
+bool chk() {
+    int prev = a[0];
     int cnt = 1;
 
     for(int i = 1; i < N; i++) {
-        if(v[i] == prev) {
+        if(a[i] == prev) {
             cnt++;
         }
         else {
             if(cnt % prev != 0) return 0;
             else cnt = 1;
         }
-        prev = v[i];
+        prev = a[i];
     }
     if(cnt % prev != 0) return 0;
     return 1;
 }
 
-void go(vector<int>& v) {
-    if((int)v.size() == N) {
-        if(chk(v)) ret++;
+void go(int idx) {
+    if(idx == N) {
+        if(chk()) ret++;
         return;
     }
     for(int i = 1; i <= 4; i++) {
-        v.push_back(i);
-        go(v);
-        v.pop_back();
+        a[idx] = i;
+        go(idx + 1);
     }
 }
 
 int main() {
     // Please write your code here.
     cin >> N;
-    vector<int> b;
-    go(b);
+    go(0);
     cout << ret << '\n';
     return 0;
 }
