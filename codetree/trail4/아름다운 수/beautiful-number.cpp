@@ -5,20 +5,14 @@ int ret, N;
 int a[11];
 
 bool chk() {
-    int prev = a[0];
-    int cnt = 1;
+    for(int i = 0; i < N; i += a[i]) {
+        int st = a[i];
+        if(i + st - 1 >= N) return 0;
 
-    for(int i = 1; i < N; i++) {
-        if(a[i] == prev) {
-            cnt++;
+        for(int j = i; j < i + a[i]; j++) {
+            if(a[j] != st) return 0;
         }
-        else {
-            if(cnt % prev != 0) return 0;
-            else cnt = 1;
-        }
-        prev = a[i];
     }
-    if(cnt % prev != 0) return 0;
     return 1;
 }
 
