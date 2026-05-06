@@ -6,6 +6,7 @@ int N, M, C;
 int W[12][12];
 int sum, ret;
 
+// 현재 위치 (r,c), 무게의 합(w_sum), 가치의 합(val_sum), 몇번째까지 봤는지(cnt)
 void get_max_val(int r, int c, int w_sum, int val_sum, int cnt) {
     if(cnt == M) {  // 연속된 M개를 전부 탐색한 경우
         sum = max(sum, val_sum);
