@@ -63,8 +63,7 @@ int main() {
         memset(visited, 0, sizeof(visited));
         auto candidates = bfs(r, c);
         if(candidates.empty()) break;   // 더 이상 새로 이동할 위치가 없는 경우
-
-        sort(candidates.begin(), candidates.end());        
+        // sort(candidates.begin(), candidates.end());        
         r = candidates[0].first;
         c = candidates[0].second;
     }
