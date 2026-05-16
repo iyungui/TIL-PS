@@ -27,7 +27,7 @@ int main() {
 
     // dp테이블 채우기
     for(int i = 1; i <= n; i++) {
-        for(int j = 1; j < total; j++) {
+        for(int j = 0; j < total; j++) {
             // (case1) i번째 수를 포함하여 합이 j인 경우
             if(j-nums[i] >= 0 && dp[i-1][j-nums[i]]) dp[i][j] = true;
 
