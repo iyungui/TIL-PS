@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// k: 0부터 N*N까지.
+// k: 0부터 2*(N-1)까지. (격자 양끝점의 맨해튼거리)
 // 모든시작점(N*N)에 대하여, 격자 내 임의의 점이 마름모 안에 들었는지 체크 (맨헤튼거리)=> 골드수익과 금의 개수 구하기
 // 골드수익(benefit) 과 cost (k.. 공식) 중 benefit이 더 크거나 같을 때
 // 금의 개수가 더 많다면, 최대 금의 개수 갱신 
@@ -36,7 +36,8 @@ int main() {
         }
     }
     int max_cnt = 0;
-    for(int k = 0; k <= n*n; k++) {
+    int max_k = 2*(n-1);
+    for(int k = 0; k <= max_k; k++) {
         int cost = (k*k) + (k+1)*(k+1);
 
         for(int i = 0; i < n; i++) {
