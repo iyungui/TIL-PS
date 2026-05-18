@@ -2,43 +2,45 @@
 
 using namespace std;
 
-bool cmp(const pair<int, int>& a, const pair<int, int>& b) {
-    if (a.first == b.first) {
-        return a.second < b.second;
-    }
-    return a.first > b.first;
+struct Song {
+    int totalByGenre;
+    string genre;
+    int cnt;
+    int idx;
+};
+
+bool cmp(const Song& a, const Song& b) {
+    // 속한 노래가 많이 재생된 장르부터
+    if(a.totalByGenre != b.totalByGenre) return a.totalByGenre > b.totalByGenre;
+    // 장르 내에서 많이 재생된 노래부터
+    if(a.cnt != b.cnt) return a.cnt > b.cnt;
+    // 고유번호가 낮은 노래부터
+    return a.idx < b.idx;
 }
 
+vector<Song> songs;
+
+unordered_map<string, int> mp;
+
 vector<int> solution(vector<string> genres, vector<int> plays) {
+    int n = genres.size();
+    for(int i = 0; i < n; i++) {
+        mp[genres[i]] += plays[i];  // 장르별로 카운트만 먼저
+    }
+    for(int i = 0; i < n; i++) {
+        songs.push_back({mp[genres[i]], genres[i], plays[i], i});
+    }
+    
+    sort(songs.begin(), songs.end(), cmp);
+    
     vector<int> answer;
-    unordered_map<string, int> genre_play_count;
-    unordered_map<string, vector<pair<int, int>>> genre_songs;
-
-    for (int i = 0; i < genres.size(); i++) {
-        genre_play_count[genres[i]] += plays[i];
-        genre_songs[genres[i]].emplace_back(plays[i], i);
-    }
-
-    // Sort genres by total play count in descending order
-    vector<pair<int, string>> sorted_genres;
-
-    for (const auto& entry : genre_play_count) {
-        sorted_genres.emplace_back(entry.second, entry.first);
-    }
-
-    sort(sorted_genres.rbegin(), sorted_genres.rend());
-
-    // For each genre, sort songs by play count (and index for ties) and select top two songs
-    for (const auto& genre_entry : sorted_genres) {
-        const string& genre = genre_entry.second;
-        auto& songs = genre_songs[genre];
-
-        sort(songs.begin(), songs.end(), cmp);
-
-        for (int i = 0; i < min(2, (int)songs.size()); i++) {
-            answer.push_back(songs[i].second);
+    // 장르별로 두 개씩만
+    unordered_map<string, int> mp2;
+    for(int i = 0; i < n; i++) {
+        if(mp2[songs[i].genre] < 2) {
+            mp2[songs[i].genre]++;
+            answer.push_back(songs[i].idx);
         }
     }
-
     return answer;
 }
