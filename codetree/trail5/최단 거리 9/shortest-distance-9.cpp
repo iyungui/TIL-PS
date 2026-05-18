@@ -42,10 +42,11 @@ int main() {
     vector<int> path;
     path.push_back(B);
 
-    while(cur != 0) {
+    while(cur != A) {
         path.push_back(cur);
         cur = parent[cur];
     }
+    path.push_back(A);
 
     reverse(path.begin(), path.end());
 
