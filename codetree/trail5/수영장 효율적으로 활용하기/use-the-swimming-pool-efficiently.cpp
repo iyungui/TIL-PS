@@ -6,11 +6,11 @@ using namespace std;
 int n, m;
 vector<int> t;
 
-int go(int k) {
+bool chk(int k) {
     int lane_cnt = 0;
     int lane_time = 0;
     for(int i = 0; i < n; i++) {
-        if(t[i] > k) return 1e9;  // 한 사람의 이용시간이 k보다 크다면, 불가능
+        if(t[i] > k) return 0;  // 한 사람의 이용시간이 k보다 크다면, 불가능
 
         if(lane_time + t[i] > k) {
             lane_cnt++;
@@ -18,7 +18,7 @@ int go(int k) {
         }
         lane_time += t[i];
     }
-    return lane_cnt+1;
+    return (lane_cnt+1) <= m;
 }
 
 int main() {
@@ -36,9 +36,7 @@ int main() {
     while(low <= high) {
         int k = low + (high - low) / 2;
         // 레인별로 K를 넘지않도록 이용시간 배정했을 때, M개의 레인을 사용한다면
-        int cnt = go(k);
-
-        if(cnt <= m) {
+        if(chk(k)) {
             // 더 작은 k 탐색
             high = k - 1;
             ret = min(ret, k);
