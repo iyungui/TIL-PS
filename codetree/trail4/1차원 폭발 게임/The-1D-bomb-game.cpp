@@ -2,64 +2,67 @@
 using namespace std;
 
 int n, m;
-vector<int> a;
-
+vector<int> nums;
 int main() {
     cin >> n >> m;
     for(int i = 0; i < n; i++) {
         int num; cin >> num;
-        a.push_back(num);
+        nums.push_back(num);
     }
 
+    // 모든 숫자들이 폭발하므로 0 출력
     if(m == 1) {
         cout << 0 << '\n';
         return 0;
     }
 
     while(1) {
-        bool bomb = false;  // 이번 루프에서 폭발이 일어났는지 여부
-        n = a.size();
-        if(n == 0) break;
+        // 폭발이 일어났는지 여부
+        bool bomb = false;
 
-        vector<bool> is_bomb(n, false); // 터질 위치를 표시할 배열
+        // 배열 크기 업데이트
+        n = nums.size();
 
-        int start_idx = 0;
+        vector<bool> is_bomb(n, false); // 폭발이 일어나는 위치인지 여부
+
+        int st = 0;
+
         for(int i = 1; i < n; i++) {
-            if(a[i] != a[i-1]) {
-                int len = i - start_idx;
-                // 연속된 길이가 m 이상이면 폭발 표시
+            if(nums[i] != nums[i-1]) {
+                int len = i - st;
+                // 폭탄이 터지는 경우(st부터 i 직전 까지(i는 새로운 숫자이므로 터지지x))
                 if(len >= m) {
-                    for(int j = start_idx; j < i; j++) {
-                        is_bomb[j] = true;
-                    }
                     bomb = true;
+                    for(int j = st; j < i; j++) {
+                        is_bomb[j] = true;  // 나중에 한번에 터져야 하므로 true로 표시만   
+                    }
                 }
-                start_idx = i;  // 새로운 숫자 시작점 갱신
+                st = i;     // 새로운 숫자가 나타난 곳으로 시작점 갱신
             }
         }
-
-        // 루프가 끝난 후 마지막으로 연속된 구간 검사
-        if(n - start_idx >= m) {
+        // 마지막 숫자에 대한 처리
+        if(n - st >= m) {
             bomb = true;
-            for(int j = start_idx; j < n; j++) {
+            for(int j = st; j < n; j++) {
                 is_bomb[j] = true;
             }
         }
 
-        // 폭발이 단 한 번도 일어나지 않았다면 루프 탈출
+        // 폭발이 한번도 일어나지 않았으면 종료
         if(!bomb) break;
 
-        // 중력 작용: 터지지 않은 폭탄만 모아서 새로 구성
+        // is_bomb이 false인 곳만 다음 배열에 넣기
         vector<int> tmp;
         for(int i = 0; i < n; i++) {
-            if(!is_bomb[i]) tmp.push_back(a[i]);
+            if(!is_bomb[i]) tmp.push_back(nums[i]);
         }
-        a = tmp;
+
+        // 배열 업데이트 (바꾸기)
+        nums = tmp;
     }
 
+    
     cout << n << '\n';
-
-    for(int num : a) cout << num << '\n';
-
+    for(int num : nums) cout << num << '\n';
     return 0;
 }
