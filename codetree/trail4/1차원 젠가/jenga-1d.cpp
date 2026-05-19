@@ -1,34 +1,30 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n;
-int a[104];
+vector<int> blocks;
 
 void go(int s, int e) {
     vector<int> tmp;
-    for(int i = 0; i < n; i++) {
+    for(int i = 0; i < (int)blocks.size(); i++) {
         if(i < s || i > e) {
-            tmp.push_back(a[i]);
+            tmp.push_back(blocks[i]);
         }
     }
-    n = tmp.size();
-    for(int i = 0; i < n; i++) {
-        a[i] = tmp[i];
-    }
+    blocks = tmp;
 }
 
 int main() {
-    cin >> n;
-    for(int i = 0; i < n; i++) cin >> a[i];
+    int n; cin >> n;
+    blocks.resize(n);
+    for(int i = 0; i < n; i++) cin >> blocks[i];
+    
     int s, e;
-    cin >> s >> e;
-    go(s-1, e-1);
-    cin >> s >> e;
-    go(s-1, e-1);
+    cin >> s >> e; go(s-1, e-1);
+    cin >> s >> e; go(s-1, e-1);
 
-    cout << n << '\n';
-    for(int i = 0; i < n; i++) {
-        cout << a[i] << '\n';
+    cout << (int)blocks.size() << '\n';
+    for(int x : blocks) {
+        cout << x << '\n';
     }
     return 0;
 }
