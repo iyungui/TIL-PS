@@ -3,6 +3,29 @@ using namespace std;
 
 int n, m, k;
 int board[104][104];
+
+void paint(int row) {
+    for(int j = k; j < k+m; j++) {
+        board[row][j] = 1;
+    }
+}
+
+bool chk(int row) {
+    for(int j = k; j < k+m; j++) {
+        if(board[row][j] == 1) return 1;
+    }
+    return 0;
+}
+
+int get_target() {
+    for(int i = 1; i < n; i++) {
+        if(chk(i)) {
+            return i-1;
+        }
+    }
+    return n-1;
+}
+
 int main() {
     cin >> n >> m >> k;
     for(int i = 0; i < n; i++) {
@@ -12,26 +35,9 @@ int main() {
     }
     k--;
 
-    bool flag = 0;  // i번째 행에서 부딪혔는지 여부
+    int target = get_target();
 
-    for(int i = 1; i < n; i++) {
-        for(int j = k; j < k+m; j++) {
-            if(board[i][j] == 1) {  // i번째 행에서 부딪혔다면, i-1번 행에 올리면됨.
-                flag = 1;
-                break;
-            }
-        }
-
-        if(flag) {
-            for(int j = k; j < k+m; j++) {
-                board[i-1][j] = 1;
-            }
-            break;
-        }
-    }
-    if(!flag) {
-        for(int j = k; j < k+m; j++) board[n-1][j] = 1;
-    }
+    paint(target);
 
     for(int i = 0; i < n; i++) {
         for(int j = 0; j < n; j++) {
