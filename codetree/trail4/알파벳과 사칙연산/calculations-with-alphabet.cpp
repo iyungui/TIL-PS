@@ -1,21 +1,23 @@
 #include <bits/stdc++.h>
+
 using namespace std;
 
-int nums[6];    // a~f
+string expression;
 vector<char> ops;
 vector<int> chs;
+bool used[6];
+int nums[6];
 int ret = -1e9;
-bool visited[6];
 
 int calc(int a, int b, char op) {
+    if(op == '*') return a * b;
     if(op == '+') return a + b;
-    if(op == '-') return a - b;
-    return a * b;
+    return a - b;
 }
 
 int solve() {
+    int sum = nums[chs[0]];
     int n = ops.size();
-    int sum = nums[chs[0]]; // 첫번째 숫자
     for(int i = 0; i < n; i++) {
         sum = calc(sum, nums[chs[i+1]], ops[i]);
     }
@@ -23,12 +25,11 @@ int solve() {
 }
 
 void go(int idx) {
-    if(idx == 6) {  // 모든 알파벳 경우를 다 본 경우(4의 6승)
-        ret = max(solve(), ret);
+    if(idx == 6) {
+        ret = max(ret, solve());
         return;
     }
-    // 가지치기
-    if(!visited[idx]) { // 없는 알파벳이라면 바로 다음 idx로 가기
+    if(!used[idx]) {
         go(idx + 1);
         return;
     }
@@ -38,14 +39,14 @@ void go(int idx) {
     }
 }
 
-
 int main() {
-    // 식 입력받고, 알파벳벡터와 연산자 벡터로 분리
-    string s; cin >> s;
-    for(char c : s) {
-        if(c >= 'a' && c <= 'f') {
+    cin >> expression;
+
+    // Please write your code here.
+    for(char c : expression) {
+        if(c >= 'a' && c <= 'z') {
             int idx = c - 'a';
-            visited[idx] = 1;
+            used[idx] = true;
             chs.push_back(idx);
         }
         else ops.push_back(c);
@@ -54,5 +55,6 @@ int main() {
     go(0);
 
     cout << ret << '\n';
+
     return 0;
 }
