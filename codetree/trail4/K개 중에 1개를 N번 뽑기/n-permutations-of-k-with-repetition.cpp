@@ -1,25 +1,30 @@
-#include <bits/stdc++.h>
+#include <iostream>
+
 using namespace std;
 
-// idx
-
 int K, N;
-int ans[10];
+
+int chosen[10];
 
 void go(int idx) {
-    if(idx == N) {
-        for(int i = 0; i < N; i++) cout << ans[i] << " ";
+    if(idx == N) {  // N개를 다 선택했을 때
+        // output
+        for(int i = 0; i < N; i++) {
+            cout << chosen[i] << " ";
+        }
         cout << '\n';
         return;
     }
     for(int i = 1; i <= K; i++) {
-        ans[idx] = i;
-        go(idx + 1);
+        chosen[idx] = i;
+        go(idx+1);
     }
 }
+
 int main() {
-    // Please write your code here.
     cin >> K >> N;
+
     go(0);
+
     return 0;
 }
