@@ -1,28 +1,35 @@
 #include <bits/stdc++.h>
+
 using namespace std;
 
-int N;
-vector<int> nums;
-int ret = 14;
+int n;
+int num[10];
+int ret = 1e9;
 
-void go(int cur, int pos) {
-    if(pos >= N-1) {
-        ret = min(ret, cur);
+// 4^10
+void go(int cur_idx, int jump_cnt) {
+    if(cur_idx == n - 1) {
+        ret = min(ret, jump_cnt);
         return;
     }
-    for(int i = 1; i <= nums[pos]; i++) {
-        go(cur + 1, pos + i);
+    for(int i = 1; i <= num[cur_idx]; i++) {
+        int nxt = cur_idx + i;
+        if(nxt < n) go(nxt, jump_cnt + 1);
     }
 }
 
 int main() {
-    cin >> N;
-    nums.resize(N);
-    for(int i = 0; i < N; i++) {
-        cin >> nums[i];
+    cin >> n;
+
+    for (int i = 0; i < n; i++) {
+        cin >> num[i];
     }
+
+    // Please write your code here.
     go(0, 0);
-    if(ret == 14) cout << -1 << '\n';
+
+    if(ret == 1e9) cout << -1 << '\n';
     else cout << ret << '\n';
+
     return 0;
 }
