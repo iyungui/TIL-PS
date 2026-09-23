@@ -1,20 +1,27 @@
 #include <bits/stdc++.h>
+
 using namespace std;
 
 int n, m;
+unordered_map<int, string> mp;
+unordered_map<string, int> mp2;
+
 int main() {
     cin >> n >> m;
-    unordered_map<string, int> mp;
-    unordered_map<int, string> mp2;
-    for(int i = 1; i <= n; i++) {
+
+    for (int i = 1; i <= n; i++) {
         string s; cin >> s;
-        mp[s] = i;
-        mp2[i] = s;
+        mp[i] = s;
+        mp2[s] = i;
     }
-    while(m--) {
-        string c; cin >> c;
-        if(isdigit(c[0])) cout << mp2[stoi(c)] << '\n';
-        else cout << mp[c] << '\n';
+
+    for (int i = 0; i < m; i++) {
+        string q; cin >> q;
+        if(isdigit(q[0])) cout << mp[stoi(q)] << '\n';
+        else cout << mp2[q] << '\n';
     }
+
+    // Please write your code here.
+
     return 0;
 }
