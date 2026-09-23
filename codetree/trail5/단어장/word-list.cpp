@@ -1,14 +1,19 @@
 #include <bits/stdc++.h>
+
 using namespace std;
 
-map<string, int> mp;
 int n;
+string words[100000];
+
 int main() {
     cin >> n;
-    for(int i = 0; i < n; i++) {
-        string s; cin >> s;
-        mp[s]++;
+    map<string, int> mp;
+    for (int i = 0; i < n; i++) {
+        cin >> words[i];
+        mp[words[i]]++;
     }
-    for(auto& [str, cnt] : mp) cout << str << " " << cnt << '\n';
+
+    // Please write your code here.
+    for(const auto& [w, c] : mp) cout << w << " " << c << '\n';
     return 0;
 }
