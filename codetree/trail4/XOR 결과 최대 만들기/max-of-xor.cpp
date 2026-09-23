@@ -11,8 +11,8 @@ void go(int cnt, int k, int val) {
         ret = max(ret, val);
         return;
     }
-    if((n-k+1) < (m-cnt)) return;
-
+    if(n-k < m-cnt) return;
+    
     for(int i = k; i < n; i++) {
         go(cnt+1, i+1, val ^ A[i]);
     }
