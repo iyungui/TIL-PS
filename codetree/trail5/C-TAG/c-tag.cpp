@@ -24,16 +24,14 @@ int main() {
                 unordered_set<string> st;
                 
                 for(int r = 0; r < n; r++) {
-                    string a = "";
-                    a += A[r][i]; a += A[r][j]; a+= A[r][k]; // 뽑은 세자리수 알파벳 하나
+                    string a = {A[r][i],A[r][j],A[r][k]}; // 뽑은 세자리수 알파벳 하나
                     st.insert(a);
                 }
 
                 bool is_matched = 0;
 
                 for(int r = 0; r < n; r++) {
-                    string b = "";
-                    b += B[r][i]; b += B[r][j]; b += B[r][k];
+                    string b = {B[r][i],B[r][j],B[r][k]};
                     auto it = st.find(b);
                     if(it != st.end()) {
                         is_matched = 1; break;
